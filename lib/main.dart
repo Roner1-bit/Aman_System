@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:aman_system/layout/cubit/cubit.dart';
 import 'package:aman_system/layout/cubit/states.dart';
-import 'package:aman_system/modules/login_screen/login_screen.dart';
+import 'package:aman_system/modules/login_page/presentation/pages/login_screen.dart';
+import 'package:aman_system/modules/login_page/presentation/widgets/login_widget.dart';
+
 import 'package:aman_system/shared/Bloc_Observer.dart';
 import 'package:aman_system/shared/components/components.dart';
 import 'package:aman_system/shared/network/local/cache_helper.dart';
@@ -56,7 +58,7 @@ class MyApp extends StatelessWidget {
 
                 //buildMaterialColor(const Color(0x00292c35)),
               ),
-              home: LoginScreen(),
+              home: const LoginWidget(),
             );
           },
         )
