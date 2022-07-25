@@ -1,0 +1,14 @@
+//Users api
+const verifyUserEndPoint='get/User';
+const getAllUsersEndPoint='All/Users';
+const setUsers='set/Users';
+const deleteUsersWithPassword='delete/user';
+const deleteUsersWithoutPassword='user/by/Name';
+//Tech api
+const getAllTechTable='All/tech';
+const createTechProject_='create/project/tech';
+const addMultiMedia_='tech/add/multi';
+const addSubHeader_='tech/add/subheader';
+const getSubHeader_='tech/get/Sub_Header';
+const getProjectSubHeader_='tech/get/project/Sub_Header';
+const deleteSubHeader_='tech/delete/Sub_Header';

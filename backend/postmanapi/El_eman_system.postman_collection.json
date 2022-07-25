@@ -1,0 +1,1051 @@
+{
+	"info": {
+		"_postman_id": "e36b1a14-879a-4803-83b1-e0007166541c",
+		"name": "El_eman_system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "get all user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/Users",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"Users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Dany\",\r\n    \"password\":\"qweasd123\",\r\n    \"dep\":\"qqw\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/set/Users",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"set",
+								"Users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search on user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Dany\",\r\n    \"password\":\"qweasd123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/get/User",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"get",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Dany\",\r\n    \"oldpassword\":\"qweasd123\",\r\n    \"newpassword\":\"qweasd123$\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/change/password",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"change",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change User name",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"DARK\",\"password\":\"qweasd123$\",\"newusername\":\"DANY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/change/UserName",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"change",
+								"UserName"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"DANY\",\"password\":\"qweasd123$\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/delete/user",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"delete",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Storage",
+			"item": [
+				{
+					"name": "get all storage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/storage",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"storage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get item from  storage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ID\":\"1123\",\r\n    \"name\":\"wire\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/get/storage",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"get",
+								"storage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "item_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "wire",
+									"type": "default"
+								},
+								{
+									"key": "status",
+									"value": "pending",
+									"type": "default"
+								},
+								{
+									"key": "item_image",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/Untitled.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/set/item",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"set",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change statue",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ID\":\"1122\",\r\n    \"name\":\"sult\",\r\n    \"status\":\"accepted\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/change/status",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"change",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change image",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "item_ID",
+									"value": "1122",
+									"type": "default"
+								},
+								{
+									"key": "name",
+									"value": "sult",
+									"type": "default"
+								},
+								{
+									"key": "item_image",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/joo/20220619_011155.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/change/image",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"change",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change Name",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ID\":\"1122\",\r\n    \"name\":\"paper\",\r\n    \"new_name\":\"hummer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/change/name",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"change",
+								"name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item_ID\":\"1123\",\r\n    \"name\":\"wire\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/delete/item",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"delete",
+								"item"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HR",
+			"item": [
+				{
+					"name": "Get all HR",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/hr",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"hr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create HR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "ass",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/MRI_CT_API/54CT.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/set/hr",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"set",
+								"hr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add multimedia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "tits:home:booty",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/MRI_CT_API/101.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/add/multi",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"add",
+								"multi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"ass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/get/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"get",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/get/project",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"get",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change multimedia",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "tits:home:booty",
+									"type": "default"
+								},
+								{
+									"key": "address",
+									"value": "/server/multi_media/HR/1123/tits/home/booty/8MRI.png",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/2.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/change/multimedia",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"change",
+								"multimedia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete sub header",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"tits:home\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/delete/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"delete",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/delete/project",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"delete",
+								"project"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tech",
+			"item": [
+				{
+					"name": "all tech",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/tech",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"tech"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create tech",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "project_Name",
+									"value": "manga",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "tez koko",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/C&I/Final Exam 2018.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/set/tech",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"set",
+								"tech"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add multimedia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "tits",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/MRI_CT_API/101.png"
+								},
+								{
+									"key": "project_Name",
+									"value": "zebi manga",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/add/multi",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"add",
+								"multi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"zebi manga\",\r\n    \"Sub_Header\":\"tez koko\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/get/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"get",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"zebi manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/get/project",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"get",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change multimedia",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "tits:home:booty",
+									"type": "default"
+								},
+								{
+									"key": "address",
+									"value": "/server/multi_media/tech/1123zebi manga/tits/home/booty/101.png",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/2.jpeg"
+								},
+								{
+									"key": "project_Name",
+									"value": "zebi manga",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/change/multimedia",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"change",
+								"multimedia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete sub header",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"zebi manga\",\r\n    \"Sub_Header\":\"tits:here\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/delete/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"delete",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"zebi manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/delete/project",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"delete",
+								"project"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
