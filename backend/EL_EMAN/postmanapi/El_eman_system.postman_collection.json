@@ -190,6 +190,40 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete User Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"DANY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/delete/user/by/Name",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"delete",
+								"user",
+								"by",
+								"Name"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -467,6 +501,30 @@
 					"response": []
 				},
 				{
+					"name": "Get all project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/project/hr",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"project",
+								"hr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "create HR",
 					"request": {
 						"method": "POST",
@@ -481,13 +539,13 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "ass",
+									"value": "video:",
 									"type": "default"
 								},
 								{
 									"key": "multi_media",
 									"type": "file",
-									"src": "/F:/dany_cs/Last term/MRI_CT_API/54CT.png"
+									"src": "/F:/dany_cs/course/2022-06-05 20-16-49.mkv"
 								}
 							]
 						},
@@ -510,6 +568,39 @@
 					"response": []
 				},
 				{
+					"name": "create project HR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/create/project/hr",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"create",
+								"project",
+								"hr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "add multimedia",
 					"request": {
 						"method": "POST",
@@ -524,7 +615,7 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "tits:home:booty",
+									"value": "loopo:asd:",
 									"type": "default"
 								},
 								{
@@ -554,13 +645,46 @@
 					"response": []
 				},
 				{
+					"name": "add subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"booty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/add/subheader",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"add",
+								"subheader"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get subheader",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"ass\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"video\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -580,6 +704,40 @@
 								"D",
 								"hr",
 								"get",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/get/project/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"get",
+								"project",
 								"Sub_Header"
 							]
 						}
@@ -702,6 +860,39 @@
 					"response": []
 				},
 				{
+					"name": "delete multimedia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"loopo:asd:\",\r\n    \"multi_media\":\"http://192.168.1.11/EL_EMAN/server/multi_media/HR/1123/loopo/asd/101.png\"\r\n    \r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/hr/delete/multi_media",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"hr",
+								"delete",
+								"multi_media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "delete project",
 					"request": {
 						"method": "DELETE",
@@ -741,6 +932,29 @@
 			"item": [
 				{
 					"name": "all tech",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/tech",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"tech"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all project",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -811,6 +1025,39 @@
 					"response": []
 				},
 				{
+					"name": "create project tech",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"project_ID\":1123,\r\n\"project_Name\":\"manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/create/project/tech",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"create",
+								"project",
+								"tech"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "add multimedia",
 					"request": {
 						"method": "POST",
@@ -825,7 +1072,7 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "tits",
+									"value": "hola",
 									"type": "default"
 								},
 								{
@@ -835,7 +1082,7 @@
 								},
 								{
 									"key": "project_Name",
-									"value": "zebi manga",
+									"value": "manga",
 									"type": "default"
 								}
 							]
@@ -860,13 +1107,46 @@
 					"response": []
 				},
 				{
+					"name": "add subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"pops\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/add/subheader",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"add",
+								"subheader"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get subheader",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"zebi manga\",\r\n    \"Sub_Header\":\"tez koko\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"tits\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -886,6 +1166,40 @@
 								"D",
 								"tech",
 								"get",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/get/project/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"get",
+								"project",
 								"Sub_Header"
 							]
 						}
@@ -986,7 +1300,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"zebi manga\",\r\n    \"Sub_Header\":\"tits:here\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"pops:\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1013,13 +1327,46 @@
 					"response": []
 				},
 				{
+					"name": "delete multimedia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"loopo:hi:\",\r\n    \"multi_media\":\"http://192.168.1.11/EL_EMAN/server/multi_media/tech/1123manga/loopo/hi/2.jpeg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/tech/delete/multi_media",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"tech",
+								"delete",
+								"multi_media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "delete project",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"zebi manga\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"manga\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -30,10 +30,10 @@ class LoginScreen extends StatelessWidget {
         body: defaultButton(submitFunction:
         () async {
 
-          ApiCalls.deleteSubHeaders();
+          //ApiCalls.addSubHeader();
+          ApiCalls.deleteProjectHr();
+
       }
-
-
 
             , text: "click")
       );

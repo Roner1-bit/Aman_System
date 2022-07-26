@@ -107,6 +107,93 @@ static getAllTech({required Map<String, dynamic> query}) async{
   }
 
 
+  static deleteMultiMedia({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteMultiMedia_,
+      data: query,
+    );
+  }
+
+  static deleteProject({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteProject_,
+      data: query,
+    );
+
+  }
+
+  //hr apis
+
+
+  static getAllHr({required Map<String, dynamic> query}) async{
+    return await dio.get(
+      getAllHrTable,
+    );
+
+  }
+
+  static createHrProject({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      createHrProject_,
+      data: query,
+    );
+  }
+
+  static addMultiMediaHr({required FormData query}) async {
+    return await dio.post(
+      addMultiMediaHr_,
+      data: query,
+    );
+  }
+
+  static addSubHeaderHr({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      addSubHeaderHr_,
+      data: query,
+    );
+  }
+
+
+  static getSubHeaderHr({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      getSubHeaderHr_,
+      data: query,
+    );
+  }
+
+
+  static getProjectSubHeaderHr({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      getProjectSubHeaderHr_,
+      data: query,
+    );
+  }
+
+  static deleteSubHeaderHr({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteSubHeaderHr_,
+      data: query,
+    );
+  }
+
+
+  static deleteMultiMediaHr({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteMultiMediaHr_,
+      data: query,
+    );
+  }
+
+  static deleteProjectHr({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteProjectHr_,
+      data: query,
+    );
+
+  }
+
+
+
 
 }
 

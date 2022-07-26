@@ -120,6 +120,16 @@ router.delete('/delete/user', async (req,res,next)=>{
     }
 
 });
+router.delete('/delete/user/by/Name', async (req,res,next)=>{
+    try{
+        let result =await DB.Delete_User_by_Name(req.body.username);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
 
 //////////////////// end of user tabel//////////////////////////////////////////
 //////////////////// start of storage tabel//////////////////////////////////////////
@@ -210,10 +220,30 @@ router.get('/All/hr', async (req,res,next)=>{
     }
 
 });
+router.get('/All/project/hr', async (req,res,next)=>{
+    try{
+        let result =await DB.all_project_hr();
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
 var H=uploading2.fields([{name:"multi_media",maxCount:1}])
 router.post('/set/hr',H, async (req,res,next)=>{
     try{
         let result =await DB.create_HR(req.body.project_ID,req.body.Sub_Header,req.files['multi_media']);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+router.post('/create/project/hr', async (req,res,next)=>{
+    try{
+        let result =await DB.create_project_HR(req.body.project_ID);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -233,10 +263,30 @@ router.post('/hr/add/multi',H, async (req,res,next)=>{
     }
 
 });
+router.post('/hr/add/subheader', async (req,res,next)=>{
+    try{
+        let result =await DB.add_subheader(req.body.project_ID,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
 
 router.post('/hr/get/Sub_Header', async (req,res,next)=>{
     try{
         let result =await DB.get_subheader(req.body.project_ID,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+router.post('/hr/get/project/Sub_Header', async (req,res,next)=>{
+    try{
+        let result =await DB.get_project_subheader(req.body.project_ID);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -280,6 +330,16 @@ router.delete('/hr/delete/Sub_Header', async (req,res,next)=>{
     }
 
 });
+router.delete('/hr/delete/multi_media', async (req,res,next)=>{
+    try{
+        let result =await DB.Delete_multi_media(req.body.project_ID,req.body.Sub_Header,req.body.multi_media);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
 
 
 
@@ -306,10 +366,31 @@ router.get('/All/tech', async (req,res,next)=>{
     }
 
 });
+
+router.get('/All/project/tech', async (req,res,next)=>{
+    try{
+        let result =await DB.get_all_project();
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
 var T=uploading3.fields([{name:"multi_media",maxCount:1}])
 router.post('/set/tech',T, async (req,res,next)=>{
     try{
         let result =await DB.create_tech(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.files['multi_media']);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+router.post('/create/project/tech', async (req,res,next)=>{
+    try{
+        let result =await DB.create_project_tech(req.body.project_ID,req.body.project_Name);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -330,11 +411,32 @@ router.post('/tech/add/multi',T, async (req,res,next)=>{
 
 });
 
+router.post('/tech/add/subheader', async (req,res,next)=>{
+    try{                                    //project_id,project_Name,sub_header,multi_media
+        let result =await DB.add_subheaders_tech(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
 
 
 router.post('/tech/get/Sub_Header', async (req,res,next)=>{
     try{
         let result =await DB.get_subheader_tech(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+router.post('/tech/get/project/Sub_Header', async (req,res,next)=>{
+    try{
+        let result =await DB.get_project_subheader_tech(req.body.project_ID,req.body.project_Name);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -370,6 +472,17 @@ router.patch('/tech/change/multimedia',T, async (req,res,next)=>{
 router.delete('/tech/delete/Sub_Header', async (req,res,next)=>{
     try{
         let result =await DB.Delete_subheader_tech(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+router.delete('/tech/delete/multi_media', async (req,res,next)=>{
+    try{
+        let result =await DB.Delete_multi_tech(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.body.multi_media);
         res.json(result);
     }catch(e){
         console.log(e);
