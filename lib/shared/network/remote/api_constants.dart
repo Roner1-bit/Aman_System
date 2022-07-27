@@ -3,7 +3,7 @@ const verifyUserEndPoint='get/User';
 const getAllUsersEndPoint='All/Users';
 const setUsers='set/Users';
 const deleteUsersWithPassword='delete/user';
-const deleteUsersWithoutPassword='user/by/Name';
+const deleteUsersWithoutPassword='delete/user/by/Name';
 //Tech api
 const getAllTechTable='All/tech';
 const createTechProject_='create/project/tech';

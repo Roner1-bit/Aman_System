@@ -30,12 +30,12 @@ class ApiCalls {
 
   //Users Apis
 
-  static dynamic verifyUser({required Map<String, dynamic> query}) {
+  static dynamic verifyUser() {
     // emit loading state
 
     DioHelper.verifyUser(query: {
-      "username": "Ahmed_Tamer", //change what was on the right side.
-      "password": "Zxc102030",
+      "username": "Dany1", //change what was on the right side.
+      "password": "qweasds123",
     }).then((value) {
       if (value.data.length == 0) {
         //emit login failed
@@ -50,7 +50,7 @@ class ApiCalls {
     });
   }
 
-  static dynamic createUser({required Map<String, dynamic> query}) {
+  static dynamic createUser() {
     // emit loading state
 
     DioHelper.setUser(query: {
@@ -111,8 +111,7 @@ class ApiCalls {
   }
 
 
-  static dynamic deleteUserWithPassword(
-      {required Map<String, dynamic> query}) async {
+  static dynamic deleteUserWithPassword() async {
     //emit loading state
     DioHelper.deleteUserWithPassword(query: {
       "username": "Sha3r", //change what was on the right side.
@@ -139,11 +138,10 @@ class ApiCalls {
     });
   }
 
-  static dynamic deleteUserWithoutPassword(
-      {required Map<String, dynamic> query}) async {
+  static dynamic deleteUserWithoutPassword() async {
     //emit loading state
     DioHelper.deleteUserWithoutPassword(query: {
-      "username": "sha3r", //change what was on the right side.
+      "username": "Dany1", //change what was on the right side.
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {
@@ -212,7 +210,7 @@ class ApiCalls {
   static dynamic createTechProj() {
     //emit loading state
     DioHelper.createTechProject(
-        query: {"project_ID": 113, "project_Name": "4th"}).then((value) {
+        query: {"project_ID": 113, "project_Name": "manga"}).then((value) {
       //emit the successful state
       print("created successfully");
     }).catchError((e) {
@@ -233,7 +231,7 @@ class ApiCalls {
   static dynamic addSubHeader() async {
     //emit loading state
     DioHelper.addSubHeader(query: {
-      "project_ID": 1123,
+      "project_ID": 113,
       "project_Name": "manga",
       "Sub_Header": "test"+":"
     }).then((value) {
@@ -266,8 +264,8 @@ class ApiCalls {
       print(result.files.single.path!);
       print(result.names[0]);
       var formData = FormData.fromMap({
-        "project_ID": 1123,
-        "Sub_Header": "loop"+":",
+        "project_ID": 113,
+        "Sub_Header": "test"+":",
         //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),
@@ -300,11 +298,11 @@ class ApiCalls {
     //emit loading state
     List<String> multiMediaPaths = [];
     List<String> folders = [];
-    String folderName = "loop";               //For the current folder name
-    String fullRoute ="loop"+":";          //This is meant for the entire route for the project
+    String folderName = "test";               //For the current folder name
+    String fullRoute ="test"+":";          //This is meant for the entire route for the project
     late int chosenTitleIndex; //This is meant to check the index of the chosen title out of the scheme
     DioHelper.getSubHeader(query: {
-      "project_ID": 1123,
+      "project_ID": 113,
       "project_Name": "manga",
       "Sub_Header": fullRoute
     }).then((value) {
@@ -364,8 +362,8 @@ class ApiCalls {
     //emit loading state
     List<String> listSubHeadersProject=[];
     DioHelper.getProjectSubHeader(query: {
-      "project_ID":11234,
-      "project_Name":"mangaso",
+      "project_ID":113,
+      "project_Name":"manga",
     }).then((value) {
       if (value.data.length == 0 ) {
         print("this folder is empty"); //This means the folder has no files.
@@ -402,7 +400,7 @@ class ApiCalls {
   static dynamic deleteSubHeaders() async {
   //emit loading state
   DioHelper.deleteSubHeader(query: {
-    "project_ID":1123,
+    "project_ID":113,
     "project_Name":"manga",
     "Sub_Header":"test"+":"
   }).then((value) {
@@ -433,10 +431,10 @@ class ApiCalls {
   static dynamic deleteMultiMedia() async {
     //emit loading state
     DioHelper.deleteMultiMedia(query: {
-      "project_ID":1123,
+      "project_ID":113,
       "project_Name":"manga",
-      "Sub_Header":"loop"+":",
-      "multi_media":"http://192.168.1.11/EL_EMAN/server/multi_media/tech/1123manga/loop/dice_5.png"
+      "Sub_Header":"test"+":",
+      "multi_media":"http://192.168.1.11/EL_EMAN/server/multi_media/tech/113manga/test/s.png"
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {
@@ -465,8 +463,8 @@ class ApiCalls {
   static dynamic deleteProject() async {
     //emit loading state
     DioHelper.deleteProject(query: {
-      "project_ID":112,
-      "project_Name":"3rd",
+      "project_ID":113,
+      "project_Name":"manga",
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {
@@ -536,7 +534,7 @@ class ApiCalls {
   static dynamic createHrProj() {
     //emit loading state
     DioHelper.createHrProject(
-        query: {"project_ID": 113, "project_Name": "4th"}).then((value) {
+        query: {"project_ID": 100, "project_Name": "apple"}).then((value) {
       //emit the successful state
       print("created successfully");
     }).catchError((e) {
@@ -557,7 +555,7 @@ class ApiCalls {
   static dynamic addSubHeaderHr() async {
     //emit loading state
     DioHelper.addSubHeaderHr(query: {
-      "project_ID": 113,
+      "project_ID": 1123,
       "project_Name": "manga",
       "Sub_Header": "test"+":"
     }).then((value) {
@@ -590,7 +588,7 @@ class ApiCalls {
       print(result.files.single.path!);
       print(result.names[0]);
       var formData = FormData.fromMap({
-        "project_ID": 113,
+        "project_ID": 1123,
         "Sub_Header": "test"+":",
         //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
@@ -628,11 +626,11 @@ class ApiCalls {
     String fullRoute ="test"+":";          //This is meant for the entire route for the project
     late int chosenTitleIndex; //This is meant to check the index of the chosen title out of the scheme
     DioHelper.getSubHeaderHr(query: {
-      "project_ID": 113,
+      "project_ID": 1123,
       "project_Name": "manga",
       "Sub_Header": fullRoute
     }).then((value) {
-      print("hey");
+
       if (value.data.length == 1 && value.data[0]["multi_media"] == "") {
         print("this folder is empty"); //This means the folder has no files.
       } else {
@@ -643,7 +641,6 @@ class ApiCalls {
           if (subHeaderList.length == 1) {
             multiMediaPaths.add(value.data[i]["multi_media"]);
           } else {
-            print(1);
             print(subHeaderList);
             print(folderName);
             for (int j = 0; j < subHeaderList.length; j++) {
@@ -665,7 +662,7 @@ class ApiCalls {
             projectName: "manga",
             subHeaders: folders,
             multiMediaPaths: multiMediaPaths);
-        print(2);
+
         print(folder.subHeaders);
         print(folder.multiMediaPaths);
       }
@@ -690,10 +687,9 @@ class ApiCalls {
     //emit loading state
     List<String> listSubHeadersProject=[];
     DioHelper.getProjectSubHeaderHr(query: {
-      "project_ID":113,
-      "project_Name":"mangaso",
+      "project_ID":1123,
+      "project_Name":"manga",
     }).then((value) {
-      print(value.data);
       if (value.data.length == 0 ) {
         print("this folder is empty"); //This means the folder has no files.
       } else {
@@ -729,9 +725,9 @@ class ApiCalls {
   static dynamic deleteSubHeadersHr() async {
     //emit loading state
     DioHelper.deleteSubHeaderHr(query: {
-      "project_ID":113,
+      "project_ID":1123,
       "project_Name":"manga",
-      "Sub_Header":"test2"+":"
+      "Sub_Header":"test"+":"
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {
@@ -760,10 +756,10 @@ class ApiCalls {
   static dynamic deleteMultiMediaHr() async {
     //emit loading state
     DioHelper.deleteMultiMediaHr(query: {
-      "project_ID":113,
+      "project_ID":1123,
       "project_Name":"manga",
       "Sub_Header":"test"+":",
-      "multi_media":"http://192.168.1.11/EL_EMAN/server/multi_media/tech/1123manga/loop/s.pdf"
+      "multi_media":"http://192.168.1.11/EL_EMAN/server/multi_media/HR/1123manga/test/result.png"
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {
@@ -792,8 +788,8 @@ class ApiCalls {
   static dynamic deleteProjectHr() async {
     //emit loading state
     DioHelper.deleteProjectHr(query: {
-      "project_ID":11234,
-      "project_Name":"3rd",
+      "project_ID":1123,
+      "project_Name":"manga",
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {
