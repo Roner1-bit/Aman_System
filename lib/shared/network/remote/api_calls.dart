@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aman_system/models/FolderData.dart';
+import 'package:aman_system/models/Users.dart';
 import 'package:aman_system/shared/network/remote/dio_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -75,8 +76,24 @@ class ApiCalls {
 
   static dynamic getUsers() {
     //emit the loading state
+    List<User> usersList=[];
     DioHelper.getAllUser().then((value) {
       //emit the successful state
+      if (value.data.length == 0 ) {
+        print("this folder is empty"); //This means the folder has no files.
+      } else {
+        for (int i = 0; i < value.data.length; i++) {
+          usersList.add(User.fromJson(value.data[i]));
+        }
+      }
+
+      for(int i=0;i<usersList.length;i++){
+        print(usersList[i].userName);
+        print(usersList[i].password);
+        print(usersList[i].dep);
+
+      }
+      print(usersList);  //This is the list of all users
       print("created successfully");
       //add any thing about fetching the api (call me when you want to use it).
     }).catchError((e) {
@@ -92,6 +109,7 @@ class ApiCalls {
       }
     });
   }
+
 
   static dynamic deleteUserWithPassword(
       {required Map<String, dynamic> query}) async {
@@ -150,6 +168,47 @@ class ApiCalls {
   }
 
   //Tech apis
+
+  static dynamic getTechProj() {
+
+
+    //emit loading state
+    List<String> listProject=[];
+    DioHelper.getAllTech().then((value) {
+      if (value.data.length == 0 ) {
+        print("this folder is empty"); //This means the folder has no files.
+      } else {
+        for (int i = 0; i < value.data.length; i++) {
+         // List<Map<String, dynamic>> names = jsonDecode(value.data.toString());
+          //List<dynamic> names = value.data;
+          //print(names[0]);
+          //var x = names[0];
+          //print(x["project_Name"]);
+          listProject.add(value.data[i]["project_Name"]);
+
+        }
+      }
+      listProject=cleanList(listProject,true,true);
+
+      print(listProject);              //this is the list of all the names of the folders of the project
+      //emit the successful state
+      print("successful");
+    }).catchError((e) {
+      print("error");
+      //emit error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+
+  }
+
+
   static dynamic createTechProj() {
     //emit loading state
     DioHelper.createTechProject(
@@ -435,6 +494,44 @@ class ApiCalls {
 
 
   //HR api calls
+
+
+  static dynamic getHrProj() {
+
+
+    //emit loading state
+    List<String> listHrProject=[];
+    DioHelper.getAllHr().then((value) {
+      if (value.data.length == 0 ) {
+        print("this folder is empty"); //This means the folder has no files.
+      } else {
+        for (int i = 0; i < value.data.length; i++) {
+
+          listHrProject.add(value.data[i]["project_Name"]);
+
+        }
+      }
+      listHrProject=cleanList(listHrProject,true,true);
+
+      print(listHrProject);              //this is the list of all the names of the folders of the project
+      //emit the successful state
+      print("successful");
+    }).catchError((e) {
+      print("error");
+      //emit error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+
+  }
+
+
 
   static dynamic createHrProj() {
     //emit loading state

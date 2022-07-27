@@ -546,6 +546,11 @@
 									"key": "multi_media",
 									"type": "file",
 									"src": "/F:/dany_cs/course/2022-06-05 20-16-49.mkv"
+								},
+								{
+									"key": "project_Name",
+									"value": "manga",
+									"type": "default"
 								}
 							]
 						},
@@ -574,7 +579,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"manga\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -615,13 +620,18 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "loopo:asd:",
+									"value": "booty:",
 									"type": "default"
 								},
 								{
 									"key": "multi_media",
 									"type": "file",
 									"src": "/F:/dany_cs/Last term/MRI_CT_API/101.png"
+								},
+								{
+									"key": "project_Name",
+									"value": "manga",
+									"type": "default"
 								}
 							]
 						},
@@ -651,7 +661,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"booty\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"booty:here:\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -684,7 +694,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"video\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"booty:\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -717,7 +727,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"manga\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -751,7 +761,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123\r\n\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"manga\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -792,18 +802,23 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "tits:home:booty",
+									"value": "booty:",
 									"type": "default"
 								},
 								{
 									"key": "address",
-									"value": "/server/multi_media/HR/1123/tits/home/booty/8MRI.png",
+									"value": "http://192.168.1.11/EL_EMAN/server/multi_media/HR/1123manga/booty/101.png",
 									"type": "default"
 								},
 								{
 									"key": "multi_media",
 									"type": "file",
 									"src": "/F:/dany_cs/Last term/2.jpeg"
+								},
+								{
+									"key": "project_Name",
+									"value": "manga",
+									"type": "default"
 								}
 							]
 						},
@@ -833,7 +848,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"tits:home\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"booty:here:\",\"project_Name\":\"manga\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -866,7 +881,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"loopo:asd:\",\r\n    \"multi_media\":\"http://192.168.1.11/EL_EMAN/server/multi_media/HR/1123/loopo/asd/101.png\"\r\n    \r\n    }",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"Sub_Header\":\"booty:\",\r\n    \"multi_media\":\"http://192.168.1.11/EL_EMAN/server/multi_media/HR/1123manga/booty/2.jpeg\"\r\n    ,\"project_Name\":\"manga\"\r\n    \r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -899,7 +914,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -996,7 +1011,7 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "tez koko",
+									"value": "tez koko:",
 									"type": "default"
 								},
 								{
@@ -1072,7 +1087,7 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "hola",
+									"value": "hola:",
 									"type": "default"
 								},
 								{
@@ -1113,7 +1128,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"pops\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"pops:\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1146,7 +1161,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"tits\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"tits:\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1213,7 +1228,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"zebi manga\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1254,7 +1269,7 @@
 								},
 								{
 									"key": "Sub_Header",
-									"value": "tits:home:booty",
+									"value": "tits:home:booty:",
 									"type": "default"
 								},
 								{
@@ -1269,7 +1284,7 @@
 								},
 								{
 									"key": "project_Name",
-									"value": "zebi manga",
+									"value": "manga",
 									"type": "default"
 								}
 							]
@@ -1333,7 +1348,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"loopo:hi:\",\r\n    \"multi_media\":\"http://192.168.1.11/EL_EMAN/server/multi_media/tech/1123manga/loopo/hi/2.jpeg\"\r\n}",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"hola:\",\r\n    \"multi_media\":\"http://192.168.1.11/EL_EMAN/server/multi_media/tech/1123manga/hola/101.png\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1385,6 +1400,473 @@
 							"path": [
 								"D",
 								"tech",
+								"delete",
+								"project"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "acc",
+			"item": [
+				{
+					"name": "all tech",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/acc",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"acc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:3000/D/All/acc",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"All",
+								"acc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create tech",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "project_Name",
+									"value": "manga",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "tez koko",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/C&I/Final Exam 2018.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/set/acc",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"set",
+								"acc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create project tech",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"project_ID\":1123,\r\n\"project_Name\":\"manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/create/project/acc",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"create",
+								"project",
+								"acc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add multimedia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "hola:",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/MRI_CT_API/101.png"
+								},
+								{
+									"key": "project_Name",
+									"value": "manga",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/add/multi",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"add",
+								"multi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"pops:\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/add/subheader",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"add",
+								"subheader"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"hola:\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/get/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"get",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project subheader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/get/project/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"get",
+								"project",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/get/project",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"get",
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change multimedia",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_ID",
+									"value": "1123",
+									"type": "default"
+								},
+								{
+									"key": "Sub_Header",
+									"value": "hola:",
+									"type": "default"
+								},
+								{
+									"key": "address",
+									"value": "http://192.168.1.11/EL_EMAN/server/multi_media/acc/1123manga/hola/101.png",
+									"type": "default"
+								},
+								{
+									"key": "multi_media",
+									"type": "file",
+									"src": "/F:/dany_cs/Last term/2.jpeg"
+								},
+								{
+									"key": "project_Name",
+									"value": "manga",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/change/multimedia",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"change",
+								"multimedia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete sub header",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"pops:\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/delete/Sub_Header",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"delete",
+								"Sub_Header"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete multimedia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\r\n    \"project_Name\":\"manga\",\r\n    \"Sub_Header\":\"hola:\",\r\n    \"multi_media\":\"http://192.168.1.11/EL_EMAN/server/multi_media/acc/1123manga/hola/2.jpeg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/delete/multi_media",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
+								"delete",
+								"multi_media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"project_ID\":1123,\"project_Name\":\"manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:3000/D/acc/delete/project",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"D",
+								"acc",
 								"delete",
 								"project"
 							]

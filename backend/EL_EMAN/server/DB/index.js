@@ -192,8 +192,8 @@ conn.query('DELETE FROM `storage` WHERE `item_ID`='+item_ID+' AND `name`="'+name
         return rejected(err);
     }else{
         var pathme="/server/multi_media/Storage/"+name+item_ID
-
-        fs.rmdirSync("."+pathme,{recursive:true})
+        try{
+        fs.rmdirSync("."+pathme,{recursive:true})}catch (e) {}
         return resolve(result);
     }
 });
@@ -203,6 +203,7 @@ conn.query('DELETE FROM `storage` WHERE `item_ID`='+item_ID+' AND `name`="'+name
 //////////////////// start of HR schema//////////////////////////////////////////
 DARK_DB.all_hr=()=>{
     return new Promise((resolve,rejected)=>{
+    
 conn.query('SELECT * FROM `hr`',(err,result)=>{
     if(err){
         return rejected(err);
@@ -224,10 +225,10 @@ conn.query('SELECT * FROM `hr` WHERE `Sub_Headers` ="" AND multi_media=""',(err,
     });
 };
 
-DARK_DB.create_HR=(project_ID,Sub_Header,multi_media)=>{
+DARK_DB.create_HR=(project_ID,project_Name,Sub_Header,multi_media)=>{
     return new Promise((resolve,rejected)=>{
 
-      var pathme="/server/multi_media/HR/"+project_ID
+      var pathme="/server/multi_media/HR/"+project_ID+project_Name
       fs.mkdirSync("."+pathme);
       if(Sub_Header.includes(":")){
         var folders=Sub_Header.split(":")
@@ -240,7 +241,7 @@ DARK_DB.create_HR=(project_ID,Sub_Header,multi_media)=>{
 
                 fs.mkdirSync("."+pathme);
                 
-                conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${sub}','')`,(err,result)=>{
+                conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${sub}','')`,(err,result)=>{
     if(err){
         // return rejected(err);
     }else{
@@ -261,7 +262,7 @@ DARK_DB.create_HR=(project_ID,Sub_Header,multi_media)=>{
             fs.mkdirSync("."+pathme);
 
 
-            conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${Sub_Header+":"}','')`,(err,result)=>{
+            conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header+":"}','')`,(err,result)=>{
                 if(err){
                     // return rejected(err);
                 }else{
@@ -275,7 +276,7 @@ DARK_DB.create_HR=(project_ID,Sub_Header,multi_media)=>{
 
       fs.move("./server/multi_media/HR/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
       pathme=ip+dir[dir.length-3]+pathme
-conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${Sub_Header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
+conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -284,15 +285,15 @@ conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${proje
 });
     });
 };
-DARK_DB.create_project_HR=(project_ID)=>{
+DARK_DB.create_project_HR=(project_ID,project_Name)=>{
     return new Promise((resolve,rejected)=>{
 
-      var pathme="/server/multi_media/HR/"+project_ID
+      var pathme="/server/multi_media/HR/"+project_ID+project_Name
       fs.mkdirSync("."+pathme);
 
 
      
-conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'','')`,(err,result)=>{
+conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','','')`,(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -302,9 +303,9 @@ conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${proje
     });
 };
 
-DARK_DB.addmulti=(project_ID,Sub_Header,multi_media)=>{
+DARK_DB.addmulti=(project_ID,project_Name,Sub_Header,multi_media)=>{//work from here
     return new Promise((resolve,rejected)=>{
-var pathme="/server/multi_media/HR/"+project_ID
+var pathme="/server/multi_media/HR/"+project_ID+project_Name
     if(Sub_Header.includes(":")){
         var folders=Sub_Header.split(":")
         var sub=""
@@ -314,7 +315,7 @@ var pathme="/server/multi_media/HR/"+project_ID
             if(!fs.existsSync("."+pathme)){
                 fs.mkdirSync("."+pathme);
                 
-                conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${sub}','')`,(err,result)=>{
+                conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${sub}','')`,(err,result)=>{
                     if(err){
                         // return rejected(err);
                     }else{
@@ -333,7 +334,7 @@ var pathme="/server/multi_media/HR/"+project_ID
         if(!fs.existsSync("."+pathme)){
             fs.mkdirSync("."+pathme);
 
-            conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${Sub_Header+":"}','')`,(err,result)=>{
+            conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header+":"}','')`,(err,result)=>{
                 if(err){
                     // return rejected(err);
                 }else{
@@ -343,24 +344,41 @@ var pathme="/server/multi_media/HR/"+project_ID
         }
    
     }
-     fs.move("./server/multi_media/HR/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
-     pathme=ip+dir[dir.length-3]+pathme
-conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${Sub_Header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
-    if(err){
-        return rejected(err);
-    }else{
-        return resolve(result);
-    }
-});
+
+    conn.query('SELECT * FROM `hr` WHERE `multi_media` like "%'+pathme+"/"+multi_media[0].originalname+'%"',(err,result)=>{
+        if(err){
+
+        }else{
+            if(result.length===0){
+                fs.move("./server/multi_media/HR/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
+                pathme=ip+dir[dir.length-3]+pathme
+           conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
+               if(err){
+                   return rejected(err);
+               }else{
+                   return resolve(result);
+               }
+           });
+
+            }else{
+                try{
+                fs.rmdirSync("./server/multi_media/HR/"+multi_media[0].originalname,{recursive:true})}catch (e) {}
+                return resolve([{"error":"this name is already taken"}])
+            }
+        }
+
+
+    })
+    
      });
 };
 
 
 
 
-DARK_DB.add_subheader=(project_ID,Sub_Header)=>{
+DARK_DB.add_subheader=(project_ID,project_Name,Sub_Header)=>{
     return new Promise((resolve,rejected)=>{
-var pathme="/server/multi_media/HR/"+project_ID
+var pathme="/server/multi_media/HR/"+project_ID+project_Name
     if(Sub_Header.includes(":")){
         var folders=Sub_Header.split(":")
         var sub=""
@@ -371,7 +389,7 @@ var pathme="/server/multi_media/HR/"+project_ID
             if(!fs.existsSync("."+pathme)){
                 fs.mkdirSync("."+pathme);
 
-                conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${sub}','')`,(err,result)=>{
+                conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${sub}','')`,(err,result)=>{
                     if(err){
                         // return rejected(err);
                     }else{
@@ -393,7 +411,7 @@ var pathme="/server/multi_media/HR/"+project_ID
         pathme=pathme+"/"+Sub_Header
         if(!fs.existsSync("."+pathme)){
             fs.mkdirSync("."+pathme);
-            conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${Sub_Header}','')`,(err,result)=>{
+            conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header}','')`,(err,result)=>{
                 if(err){
                     // return rejected(err);
                 }else{
@@ -405,7 +423,7 @@ var pathme="/server/multi_media/HR/"+project_ID
     }
     
 
-conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${project_ID},'${Sub_Header}','')`,(err,result)=>{
+conn.query(`INSERT INTO hr(project_ID,project_Name, Sub_Headers, multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header}','')`,(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -415,9 +433,9 @@ conn.query(`INSERT INTO hr(project_ID, Sub_Headers, multi_media) VALUES (${proje
      });
 };
 
-DARK_DB.get_subheader=(project_ID,Sub_Header)=>{
+DARK_DB.get_subheader=(project_ID,project_Name,Sub_Header)=>{
     return new Promise((resolve,rejected)=>{
-conn.query('SELECT * FROM `hr` WHERE `Sub_Headers` like "%'+Sub_Header+'%"  AND project_ID='+ project_ID,(err,result)=>{
+conn.query('SELECT * FROM `hr` WHERE `Sub_Headers` like "'+Sub_Header+'%"AND project_Name="'+project_Name+'"  AND project_ID='+ project_ID,(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -428,9 +446,9 @@ conn.query('SELECT * FROM `hr` WHERE `Sub_Headers` like "%'+Sub_Header+'%"  AND 
 };
 
 
-DARK_DB.get_project_subheader=(project_ID)=>{
+DARK_DB.get_project_subheader=(project_ID,project_Name)=>{
     return new Promise((resolve,rejected)=>{
-conn.query('SELECT * FROM `hr` WHERE NOT `Sub_Headers` = "" AND `multi_media`="" AND project_ID='+ project_ID,(err,result)=>{
+conn.query('SELECT * FROM `hr` WHERE NOT `Sub_Headers` = "" AND `multi_media`="" AND project_Name="'+project_Name+'"  AND project_ID='+ project_ID,(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -442,9 +460,9 @@ conn.query('SELECT * FROM `hr` WHERE NOT `Sub_Headers` = "" AND `multi_media`=""
 
 
 
-DARK_DB.get_project=(project_ID)=>{
+DARK_DB.get_project=(project_ID,project_Name)=>{
     return new Promise((resolve,rejected)=>{
-conn.query('SELECT * FROM `hr` WHERE project_ID='+ project_ID,(err,result)=>{
+conn.query('SELECT * FROM `hr` WHERE project_ID='+ project_ID+' AND project_Name="'+project_Name+'"',(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -454,9 +472,9 @@ conn.query('SELECT * FROM `hr` WHERE project_ID='+ project_ID,(err,result)=>{
     });
 };
 
-DARK_DB.change_multimedia=(project_ID,Sub_Header,add,multi_media)=>{
+DARK_DB.change_multimedia=(project_ID,project_Name,Sub_Header,add,multi_media)=>{
     return new Promise((resolve,rejected)=>{
-var pathme="/server/multi_media/HR/"+project_ID
+var pathme="/server/multi_media/HR/"+project_ID+project_Name
     if(Sub_Header.includes(":")){
         var folders=Sub_Header.split(":")
         
@@ -471,7 +489,7 @@ var pathme="/server/multi_media/HR/"+project_ID
     }
      fs.move("./server/multi_media/HR/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
      pathme=ip+dir[dir.length-3]+pathme
-conn.query('UPDATE `hr` SET `multi_media`="'+pathme+"/"+multi_media[0].originalname+'" WHERE `multi_media`="'+add+'" AND `Sub_Headers`="'+Sub_Header+'" AND project_ID='+ project_ID,(err,result)=>{
+conn.query('UPDATE `hr` SET `multi_media`="'+pathme+"/"+multi_media[0].originalname+'" WHERE `multi_media`="'+add+'" AND `Sub_Headers`="'+Sub_Header+'" AND project_ID='+ project_ID+' AND project_Name="'+project_Name+'"',(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -483,10 +501,10 @@ conn.query('UPDATE `hr` SET `multi_media`="'+pathme+"/"+multi_media[0].originaln
 
 
 
-DARK_DB.Delete_subheader=(project_ID,Sub_Header)=>{
+DARK_DB.Delete_subheader=(project_ID,project_Name,Sub_Header)=>{
     return new Promise((resolve,rejected)=>{
         var pathme="/server/multi_media/HR/"+project_ID
-conn.query('DELETE FROM `hr` WHERE `Sub_Headers` like "%'+Sub_Header+'%" AND project_ID='+ project_ID,(err,result)=>{
+conn.query('DELETE FROM `hr` WHERE `Sub_Headers` like "'+Sub_Header+'%" AND project_ID='+ project_ID+' AND project_Name="'+project_Name+'"',(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -505,7 +523,11 @@ conn.query('DELETE FROM `hr` WHERE `Sub_Headers` like "%'+Sub_Header+'%" AND pro
             console.log(Sub_Header);
             pathme=pathme+"/"+Sub_Header
             }
+            try {
         fs.rmdirSync("."+pathme,{recursive:true})
+    }catch (e) {
+
+    }
         return resolve(result);
 
 
@@ -513,17 +535,21 @@ conn.query('DELETE FROM `hr` WHERE `Sub_Headers` like "%'+Sub_Header+'%" AND pro
 });
     });
 };
-DARK_DB.Delete_multi_media=(project_ID,Sub_Header,multi_media)=>{
+DARK_DB.Delete_multi_media=(project_ID,project_Name,Sub_Header,multi_media)=>{
     return new Promise((resolve,rejected)=>{
         
-conn.query('DELETE FROM `hr` WHERE `Sub_Headers` ="'+Sub_Header+'" AND `multi_media`="'+multi_media+'" AND project_ID='+ project_ID,(err,result)=>{
+conn.query('DELETE FROM `hr` WHERE `Sub_Headers` ="'+Sub_Header+'" AND `multi_media`="'+multi_media+'" AND project_ID='+ project_ID+' AND project_Name="'+project_Name+'"',(err,result)=>{
     if(err){
         return rejected(err);
     }else{
 
         multi_media=multi_media.replace(ip,"")
         multi_media=multi_media.replace(dir[dir.length-3],"")
+        try {
         fs.rmdirSync("."+multi_media,{recursive:true})
+    }
+        
+        catch (e) {}
         return resolve(result);
 
 
@@ -532,15 +558,18 @@ conn.query('DELETE FROM `hr` WHERE `Sub_Headers` ="'+Sub_Header+'" AND `multi_me
     });
 };
 
-DARK_DB.Delete_project_HR=(project_ID)=>{
+DARK_DB.Delete_project_HR=(project_ID,project_Name)=>{
     return new Promise((resolve,rejected)=>{
-        var pathme="/server/multi_media/HR/"+project_ID
-conn.query('DELETE FROM `hr` WHERE project_ID='+ project_ID,(err,result)=>{
+        var pathme="/server/multi_media/HR/"+project_ID+project_Name
+conn.query('DELETE FROM `hr` WHERE project_ID='+ project_ID+' AND project_Name="'+project_Name+'"',(err,result)=>{
     if(err){
         return rejected(err);
     }else{
-      
+        try {
         fs.rmdirSync("."+pathme,{recursive:true})
+    }catch{
+
+        }
         return resolve(result);
 
 
@@ -697,15 +726,32 @@ var pathme="/server/multi_media/tech/"+project_id+project_Name
         }
    
     }
-     fs.move("./server/multi_media/tech/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
-     pathme=ip+dir[dir.length-3]+pathme
-conn.query(`INSERT INTO tech(project_id,project_Name,sub_header,multi_media) VALUES (${project_id},'${project_Name}','${sub_header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
-    if(err){
-        return rejected(err);
-    }else{
-        return resolve(result);
-    }
-});
+    conn.query('SELECT * FROM `tech` WHERE `multi_media` like "%'+pathme+"/"+multi_media[0].originalname+'%"',(err,result)=>{
+        if(err){
+            
+            
+        }else{
+            if(result.length===0){
+                fs.move("./server/multi_media/tech/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
+                pathme=ip+dir[dir.length-3]+pathme
+           conn.query(`INSERT INTO tech(project_id,project_Name,sub_header,multi_media) VALUES (${project_id},'${project_Name}','${sub_header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
+               if(err){
+                   return rejected(err);
+               }else{
+                   return resolve(result);
+               }
+           });
+
+            }else{
+                try{
+                fs.rmdirSync("./server/multi_media/tech/"+multi_media[0].originalname,{recursive:true})}catch (e) {}
+                return resolve([{"error":"this name is already taken"}])
+            }
+            
+        }
+    });
+    
+    
      });
 };
 
@@ -829,7 +875,7 @@ conn.query('UPDATE `tech` SET `multi_media`="'+pathme+"/"+multi_media[0].origina
 DARK_DB.Delete_subheader_tech=(project_ID,project_Name,Sub_Header)=>{
     return new Promise((resolve,rejected)=>{
         var pathme="/server/multi_media/tech/"+project_ID+project_Name
-conn.query('DELETE FROM `tech` WHERE `sub_header` like "%'+Sub_Header+'%" AND project_Name="'+project_Name+'" AND project_id='+ project_ID,(err,result)=>{
+conn.query('DELETE FROM `tech` WHERE `sub_header` like "'+Sub_Header+'%" AND project_Name="'+project_Name+'" AND project_id='+ project_ID,(err,result)=>{
     if(err){
         return rejected(err);
     }else{
@@ -848,7 +894,8 @@ conn.query('DELETE FROM `tech` WHERE `sub_header` like "%'+Sub_Header+'%" AND pr
             console.log(Sub_Header);
             pathme=pathme+"/"+Sub_Header
             }
-        fs.rmdirSync("."+pathme,{recursive:true})
+            try {
+        fs.rmdirSync("."+pathme,{recursive:true})}catch (e) {}
         return resolve(result);
 
 
@@ -866,8 +913,8 @@ conn.query('DELETE FROM `tech` WHERE `sub_header` = "'+Sub_Header+'" AND project
     }else{
         multi_media= multi_media.replace(ip,"")
         multi_media=multi_media.replace(dir[dir.length-3],"")
-        
-        fs.rmdirSync("."+multi_media,{recursive:true})
+        try{
+        fs.rmdirSync("."+multi_media,{recursive:true})}catch (e) {}
         return resolve(result);
 
 
@@ -884,8 +931,8 @@ conn.query('DELETE FROM `tech` WHERE project_Name="'+project_Name+'" AND project
     if(err){
         return rejected(err);
     }else{
-      
-        fs.rmdirSync("."+pathme,{recursive:true})
+      try{
+        fs.rmdirSync("."+pathme,{recursive:true})}catch (e) {}
         return resolve(result);
 
 
@@ -896,6 +943,372 @@ conn.query('DELETE FROM `tech` WHERE project_Name="'+project_Name+'" AND project
 
 
 //////////////////// end of tech schema//////////////////////////////////////////
+//////////////////// start of acc schema//////////////////////////////////////////
+DARK_DB.all_acc=()=>{
+    return new Promise((resolve,rejected)=>{
+conn.query('SELECT * FROM `acc`',(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+    });
+};
+
+DARK_DB.get_all_project_acc=()=>{
+    return new Promise((resolve,rejected)=>{
+conn.query('SELECT * FROM `acc` WHERE `sub_header` =""  AND `multi_media`="" ',(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+    });
+};
+
+
+
+DARK_DB.create_acc=(project_ID,project_Name,Sub_Header,multi_media)=>{ 
+    return new Promise((resolve,rejected)=>{
+        
+
+      var pathme="/server/multi_media/acc/"+project_ID+project_Name
+      fs.mkdirSync("."+pathme);
+
+      if(Sub_Header.includes(":")){
+        var folders=Sub_Header.split(":")
+        var sub=""
+        
+        for(var i=0;i<folders.length-1;i++){
+            pathme=pathme+"/"+folders[i]
+            sub=sub+folders[i]+":"
+            if(!fs.existsSync("."+pathme)){
+                
+                fs.mkdirSync("."+pathme);
+                conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_ID},'${project_Name}','${sub}','')`,(err,result)=>{
+                    if(err){
+                        // return rejected(err);
+                    }else{
+                        // return resolve(result);
+                        console.log("doneeee")
+                    }
+                });
+                
+            }
+         
+        }
+        
+    }else{
+        
+        console.log(Sub_Header);
+        pathme=pathme+"/"+Sub_Header
+        if(!fs.existsSync("."+pathme)){
+            fs.mkdirSync("."+pathme);
+            conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header+":"}','')`,(err,result)=>{
+                if(err){
+                    return rejected(err);
+                }else{
+                    return resolve(result);
+                }
+            });
+        }
+   
+    }
+
+    // pathme="/server/multi_media/tech/"+project_ID+project_Name+"/"+Sub_Header
+    //   fs.mkdirSync("."+pathme);
+
+      fs.move("./server/multi_media/acc/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
+      pathme=ip+dir[dir.length-3]+pathme
+conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_ID},'${project_Name}','${Sub_Header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+    });
+};
+DARK_DB.create_project_acc=(project_ID,project_Name)=>{
+    return new Promise((resolve,rejected)=>{
+
+      var pathme="/server/multi_media/acc/"+project_ID+project_Name
+      fs.mkdirSync("."+pathme);
+   
+   
+conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_ID},'${project_Name}','','')`,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+    });
+};
+
+
+DARK_DB.add_multi_acc=(project_id,project_Name,sub_header,multi_media)=>{
+    return new Promise((resolve,rejected)=>{
+var pathme="/server/multi_media/acc/"+project_id+project_Name
+    if(sub_header.includes(":")){
+        var folders=sub_header.split(":")
+        var sub=""
+        
+        for(var i=0;i<folders.length-1;i++){
+            pathme=pathme+"/"+folders[i]
+            sub=sub+folders[i]+":"
+            if(!fs.existsSync("."+pathme)){
+                
+                fs.mkdirSync("."+pathme);
+                conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_id},'${project_Name}','${sub}','')`,(err,result)=>{
+                    if(err){
+                        // return rejected(err);
+                    }else{
+                        // return resolve(result);
+                        console.log("doneeee")
+                    }
+                });
+                
+            }
+         
+        }
+        
+    }else{
+        
+        console.log(sub_header);
+        pathme=pathme+"/"+sub_header
+        if(!fs.existsSync("."+pathme)){
+            fs.mkdirSync("."+pathme);
+            conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_id},'${project_Name}','${sub_header+":"}','')`,(err,result)=>{
+                if(err){
+                    return rejected(err);
+                }else{
+                    return resolve(result);
+                }
+            });
+        }
+   
+    }
+    conn.query('SELECT * FROM `acc` WHERE `multi_media` like "%'+pathme+"/"+multi_media[0].originalname+'%"',(err,result)=>{
+        if(err){
+            
+            
+        }else{
+            if(result.length===0){
+                fs.move("./server/multi_media/acc/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
+                pathme=ip+dir[dir.length-3]+pathme
+           conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_id},'${project_Name}','${sub_header}','${pathme+"/"+multi_media[0].originalname}')`,(err,result)=>{
+               if(err){
+                   return rejected(err);
+               }else{
+                   return resolve(result);
+               }
+           });
+
+            }else{
+                try{
+                fs.rmdirSync("./server/multi_media/acc/"+multi_media[0].originalname,{recursive:true})}catch (e) {}
+                return resolve([{"error":"this name is already taken"}])
+            }
+            
+        }
+    });
+    
+    
+     });
+};
+
+DARK_DB.add_subheaders_acc=(project_id,project_Name,sub_header)=>{
+    return new Promise((resolve,rejected)=>{
+var pathme="/server/multi_media/acc/"+project_id+project_Name
+    if(sub_header.includes(":")){
+        var folders=sub_header.split(":")
+        var sub=""
+        for(var i=0;i<folders.length-2;i++){
+            pathme=pathme+"/"+folders[i]
+            sub=sub+folders[i]+":"
+            if(!fs.existsSync("."+pathme)){
+
+                fs.mkdirSync("."+pathme);
+                conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_id},'${project_Name}','${sub}','')`,(err,result)=>{
+                    if(err){
+                        // return rejected(err);
+                    }else{
+                        // return resolve(result);
+                        console.log("doneeee")
+                    }
+                });
+            
+            }
+         
+        }
+        pathme=pathme+"/"+folders[i]
+        if(!fs.existsSync("."+pathme)){
+        fs.mkdirSync("."+pathme);}
+        
+    }else{
+        
+        console.log(sub_header);
+        pathme=pathme+"/"+sub_header
+        if(!fs.existsSync("."+pathme)){
+            fs.mkdirSync("."+pathme);
+        }
+   
+    }
+    
+conn.query(`INSERT INTO acc(project_id,project_Name,sub_header,multi_media) VALUES (${project_id},'${project_Name}','${sub_header}','')`,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+     });
+};
+
+
+
+DARK_DB.get_subheader_acc=(project_ID,project_Name,Sub_Header)=>{
+    return new Promise((resolve,rejected)=>{
+conn.query('SELECT * FROM `acc` WHERE `sub_header` like "'+Sub_Header+'%" AND `project_Name`="'+project_Name+'" AND `project_id`='+ project_ID,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+    });
+};
+
+DARK_DB.get_project_subheader_acc=(project_ID,project_Name)=>{
+    return new Promise((resolve,rejected)=>{
+conn.query('SELECT * FROM `acc` WHERE NOT `sub_header` ="" AND `multi_media`=""  AND `project_Name`="'+project_Name+'" AND `project_id`='+ project_ID,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+    });
+};
+
+
+
+DARK_DB.get_project_acc=(project_ID,project_Name)=>{
+    return new Promise((resolve,rejected)=>{
+conn.query('SELECT * FROM `acc` WHERE project_id='+ project_ID+' AND `project_Name`="'+project_Name+'"',(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+    });
+};
+
+
+DARK_DB.change_multimedia_acc=(project_ID,project_Name,Sub_Header,add,multi_media)=>{
+    return new Promise((resolve,rejected)=>{
+var pathme="/server/multi_media/acc/"+project_ID+project_Name
+    if(Sub_Header.includes(":")){
+        var folders=Sub_Header.split(":")
+        
+        for(var i=0;i<folders.length-1;i++){
+            pathme=pathme+"/"+folders[i]         
+        }
+        
+    }else{
+        
+        pathme=pathme+"/"+Sub_Header
+   
+    }
+     fs.move("./server/multi_media/acc/"+multi_media[0].originalname, "."+pathme+"/"+multi_media[0].originalname, err => {});
+     pathme=ip+dir[dir.length-3]+pathme
+conn.query('UPDATE `acc` SET `multi_media`="'+pathme+"/"+multi_media[0].originalname+'" WHERE `multi_media`="'+add+'" AND `sub_header`="'+Sub_Header+'" AND project_Name="'+project_Name+'" AND project_id='+ project_ID,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        return resolve(result);
+    }
+});
+     });
+};
+
+
+DARK_DB.Delete_subheader_acc=(project_ID,project_Name,Sub_Header)=>{
+    return new Promise((resolve,rejected)=>{
+        var pathme="/server/multi_media/acc/"+project_ID+project_Name
+conn.query('DELETE FROM `acc` WHERE `sub_header` like "'+Sub_Header+'%" AND project_Name="'+project_Name+'" AND project_id='+ project_ID,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        if(Sub_Header.includes(":")){
+            var folders=Sub_Header.split(":")
+            
+            for(var i=0;i<folders.length;i++){
+                pathme=pathme+"/"+folders[i]
+                
+             
+            }
+
+            
+        }else{
+            
+            console.log(Sub_Header);
+            pathme=pathme+"/"+Sub_Header
+            }
+            try {
+        fs.rmdirSync("."+pathme,{recursive:true})}catch (e) {}
+        return resolve(result);
+
+
+    }
+});
+    });
+};
+
+
+DARK_DB.Delete_multi_acc=(project_ID,project_Name,Sub_Header,multi_media)=>{
+    return new Promise((resolve,rejected)=>{
+conn.query('DELETE FROM `acc` WHERE `sub_header` = "'+Sub_Header+'" AND project_Name="'+project_Name+'"AND `multi_media`="'+multi_media+'" AND project_id='+ project_ID,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+        multi_media= multi_media.replace(ip,"")
+        multi_media=multi_media.replace(dir[dir.length-3],"")
+        try{
+        fs.rmdirSync("."+multi_media,{recursive:true})}catch (e) {}
+        return resolve(result);
+
+
+    }
+});
+    });
+};
+
+
+DARK_DB.Delete_project_acc=(project_ID,project_Name)=>{
+    return new Promise((resolve,rejected)=>{
+        var pathme="/server/multi_media/acc/"+project_ID+project_Name
+conn.query('DELETE FROM `acc` WHERE project_Name="'+project_Name+'" AND project_ID='+ project_ID,(err,result)=>{
+    if(err){
+        return rejected(err);
+    }else{
+      try{
+        fs.rmdirSync("."+pathme,{recursive:true})}catch (e) {}
+        return resolve(result);
+
+
+    }
+});
+    });
+};
+
+
+//////////////////// end of acc schema//////////////////////////////////////////
+
 
 
 module.exports=DARK_DB;

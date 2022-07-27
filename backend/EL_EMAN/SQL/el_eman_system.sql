@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2022 at 06:34 PM
+-- Generation Time: Jul 27, 2022 at 02:02 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -24,11 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `acc`
+--
+
+CREATE TABLE `acc` (
+  `project_id` int(11) NOT NULL,
+  `project_Name` varchar(255) NOT NULL,
+  `sub_header` varchar(255) NOT NULL,
+  `multi_media` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hr`
 --
 
 CREATE TABLE `hr` (
   `project_ID` int(11) NOT NULL,
+  `project_Name` varchar(255) NOT NULL,
   `Sub_Headers` varchar(255) NOT NULL,
   `multi_media` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

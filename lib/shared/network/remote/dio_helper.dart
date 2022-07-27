@@ -55,11 +55,10 @@ class DioHelper {
 
 
   //Tech apis
-static getAllTech({required Map<String, dynamic> query}) async{
+static getAllTech() async{
   return await dio.get(
     getAllTechTable,
   );
-
 }
 
   static createTechProject({required Map<String, dynamic> query}) async {
@@ -125,7 +124,7 @@ static getAllTech({required Map<String, dynamic> query}) async{
   //hr apis
 
 
-  static getAllHr({required Map<String, dynamic> query}) async{
+  static getAllHr() async{
     return await dio.get(
       getAllHrTable,
     );

@@ -47,6 +47,21 @@ const fs = require('fs');
       cb(null, photo);
    },
   });
+
+  var storage4 = multer.diskStorage({
+    destination: (req, file, cb) => {
+        
+        var pathme="./server/multi_media/acc/"
+        // fs.mkdirSync(pathme);
+        
+     cb(null, pathme);
+     },
+     filename: (req, file, cb) => {
+       let photo = `${file.originalname}`
+       req.body.photo = photo
+      cb(null, photo);
+   },
+  });
   var uploading2 = multer({
     storage:storage2
    })
@@ -56,6 +71,9 @@ const fs = require('fs');
    })
   var uploading3 = multer({
     storage:storage3
+   })
+  var uploading4 = multer({
+    storage:storage4
    })
 //////////////////// start of user tabel//////////////////////////////////////////
 router.get('/All/Users', async (req,res,next)=>{
@@ -233,7 +251,7 @@ router.get('/All/project/hr', async (req,res,next)=>{
 var H=uploading2.fields([{name:"multi_media",maxCount:1}])
 router.post('/set/hr',H, async (req,res,next)=>{
     try{
-        let result =await DB.create_HR(req.body.project_ID,req.body.Sub_Header,req.files['multi_media']);
+        let result =await DB.create_HR(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.files['multi_media']);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -243,7 +261,7 @@ router.post('/set/hr',H, async (req,res,next)=>{
 });
 router.post('/create/project/hr', async (req,res,next)=>{
     try{
-        let result =await DB.create_project_HR(req.body.project_ID);
+        let result =await DB.create_project_HR(req.body.project_ID,req.body.project_Name);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -255,7 +273,7 @@ var H=uploading2.fields([{name:"multi_media",maxCount:1}])
 
 router.post('/hr/add/multi',H, async (req,res,next)=>{
     try{
-        let result =await DB.addmulti(req.body.project_ID,req.body.Sub_Header,req.files['multi_media']);
+        let result =await DB.addmulti(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.files['multi_media']);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -265,7 +283,7 @@ router.post('/hr/add/multi',H, async (req,res,next)=>{
 });
 router.post('/hr/add/subheader', async (req,res,next)=>{
     try{
-        let result =await DB.add_subheader(req.body.project_ID,req.body.Sub_Header);
+        let result =await DB.add_subheader(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -276,7 +294,7 @@ router.post('/hr/add/subheader', async (req,res,next)=>{
 
 router.post('/hr/get/Sub_Header', async (req,res,next)=>{
     try{
-        let result =await DB.get_subheader(req.body.project_ID,req.body.Sub_Header);
+        let result =await DB.get_subheader(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -286,7 +304,7 @@ router.post('/hr/get/Sub_Header', async (req,res,next)=>{
 });
 router.post('/hr/get/project/Sub_Header', async (req,res,next)=>{
     try{
-        let result =await DB.get_project_subheader(req.body.project_ID);
+        let result =await DB.get_project_subheader(req.body.project_ID,req.body.project_Name);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -297,7 +315,7 @@ router.post('/hr/get/project/Sub_Header', async (req,res,next)=>{
 
 router.post('/hr/get/project', async (req,res,next)=>{
     try{
-        let result =await DB.get_project(req.body.project_ID);
+        let result =await DB.get_project(req.body.project_ID,req.body.project_Name);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -309,7 +327,7 @@ router.post('/hr/get/project', async (req,res,next)=>{
 
 router.patch('/hr/change/multimedia',H, async (req,res,next)=>{
     try{
-        let result =await DB.change_multimedia(req.body.project_ID,req.body.Sub_Header,req.body.address,req.files['multi_media']);
+        let result =await DB.change_multimedia(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.body.address,req.files['multi_media']);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -322,7 +340,7 @@ router.patch('/hr/change/multimedia',H, async (req,res,next)=>{
 
 router.delete('/hr/delete/Sub_Header', async (req,res,next)=>{
     try{
-        let result =await DB.Delete_subheader(req.body.project_ID,req.body.Sub_Header);
+        let result =await DB.Delete_subheader(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -332,7 +350,7 @@ router.delete('/hr/delete/Sub_Header', async (req,res,next)=>{
 });
 router.delete('/hr/delete/multi_media', async (req,res,next)=>{
     try{
-        let result =await DB.Delete_multi_media(req.body.project_ID,req.body.Sub_Header,req.body.multi_media);
+        let result =await DB.Delete_multi_media(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.body.multi_media);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -345,7 +363,7 @@ router.delete('/hr/delete/multi_media', async (req,res,next)=>{
 
 router.delete('/hr/delete/project', async (req,res,next)=>{
     try{
-        let result =await DB.Delete_project_HR(req.body.project_ID);
+        let result =await DB.Delete_project_HR(req.body.project_ID,req.body.project_Name);
         res.json(result);
     }catch(e){
         console.log(e);
@@ -505,4 +523,155 @@ router.delete('/tech/delete/project', async (req,res,next)=>{
 });
 
 //////////////////// end of tech tabel//////////////////////////////////////////
+//////////////////// Start of acc tabel//////////////////////////////////////////
+var acc=uploading4.fields([{name:"multi_media",maxCount:1}])
+router.get('/All/acc', async (req,res,next)=>{
+    try{
+        let result =await DB.all_acc();
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+router.get('/All/project/acc', async (req,res,next)=>{
+    try{
+        let result =await DB.get_all_project_acc();
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+router.post('/set/acc',acc, async (req,res,next)=>{
+    try{
+        let result =await DB.create_acc(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.files['multi_media']);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+router.post('/create/project/acc', async (req,res,next)=>{
+    try{
+        let result =await DB.create_project_acc(req.body.project_ID,req.body.project_Name);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+
+router.post('/acc/add/multi',acc, async (req,res,next)=>{
+    try{                                    //project_id,project_Name,sub_header,multi_media
+        let result =await DB.add_multi_acc(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.files['multi_media']);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+router.post('/acc/add/subheader', async (req,res,next)=>{
+    try{                                    //project_id,project_Name,sub_header,multi_media
+        let result =await DB.add_subheaders_acc(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+
+
+router.post('/acc/get/Sub_Header', async (req,res,next)=>{
+    try{
+        let result =await DB.get_subheader_acc(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+router.post('/acc/get/project/Sub_Header', async (req,res,next)=>{
+    try{
+        let result =await DB.get_project_subheader_acc(req.body.project_ID,req.body.project_Name);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+router.post('/acc/get/project', async (req,res,next)=>{
+    try{
+        let result =await DB.get_project_acc(req.body.project_ID,req.body.project_Name);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+
+router.patch('/acc/change/multimedia',acc, async (req,res,next)=>{
+    try{
+        let result =await DB.change_multimedia_acc(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.body.address,req.files['multi_media']);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+
+router.delete('/acc/delete/Sub_Header', async (req,res,next)=>{
+    try{
+        let result =await DB.Delete_subheader_acc(req.body.project_ID,req.body.project_Name,req.body.Sub_Header);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+router.delete('/acc/delete/multi_media', async (req,res,next)=>{
+    try{
+        let result =await DB.Delete_multi_acc(req.body.project_ID,req.body.project_Name,req.body.Sub_Header,req.body.multi_media);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+
+
+router.delete('/acc/delete/project', async (req,res,next)=>{
+    try{
+        let result =await DB.Delete_project_acc(req.body.project_ID,req.body.project_Name);
+        res.json(result);
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+});
+
+//////////////////// end of acc tabel//////////////////////////////////////////
 module.exports=router;
