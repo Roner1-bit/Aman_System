@@ -725,9 +725,9 @@ class ApiCalls {
   static dynamic deleteSubHeadersHr() async {
     //emit loading state
     DioHelper.deleteSubHeaderHr(query: {
-      "project_ID":1123,
-      "project_Name":"manga",
-      "Sub_Header":"test"+":"
+      "project_ID":1222,
+      "project_Name":"mangso",
+      "Sub_Header":"booty"+":"
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {

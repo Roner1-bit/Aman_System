@@ -26,3 +26,15 @@ const getProjectSubHeaderHr_='hr/get/project/Sub_Header';
 const deleteSubHeaderHr_='hr/delete/Sub_Header';
 const deleteMultiMediaHr_='hr/delete/multi_media';
 const deleteProjectHr_="hr/delete/project";
+
+//Acc api
+
+const getAllAccTable='All/acc';
+const createAccProject_='create/project/acc';
+const addMultiMediaAcc_='acc/add/multi';
+const addSubHeaderAcc_='acc/add/subheader';
+const getSubHeaderAcc_='acc/get/project/Sub_Header';
+const getProjectSubHeaderAcc_='acc/get/project';
+const deleteSubHeaderAcc_='acc/delete/Sub_Header';
+const deleteMultiMediaAcc_='acc/delete/multi_media';
+const deleteProjectAcc_="acc/delete/project";

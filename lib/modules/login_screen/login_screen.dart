@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
         () async {
 
           //ApiCalls.addSubHeader();
-          ApiCalls.deleteProjectHr();
+          ApiCalls.deleteSubHeadersHr();
 
 
       }
