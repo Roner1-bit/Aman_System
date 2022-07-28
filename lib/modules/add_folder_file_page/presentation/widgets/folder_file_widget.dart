@@ -1,6 +1,9 @@
-import 'package:aman_system/modules/add_folder_file_page/presentation/cubit/cubit.dart';
-import 'package:aman_system/modules/add_folder_file_page/presentation/cubit/states.dart';
+import 'package:aman_system/modules/add_folder_page/presentation/pages/add_folder_screen.dart';
+import 'package:aman_system/modules/folder_page/presentation/pages/folder_screen.dart';
+import 'package:aman_system/modules/view_folders/presentation/pages/view_folder_screen.dart';
 import 'package:aman_system/shared/components/my_button.dart';
+import 'package:aman_system/shared/cubit/cubit.dart';
+import 'package:aman_system/shared/cubit/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,9 +19,9 @@ class _FolderFileWidgetState extends State<FolderFileWidget> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return AddFolderFileCubit();
+        return AppCubit();
       },
-      child: BlocConsumer<AddFolderFileCubit,AddFolderFileStates>(
+      child: BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){
 
         },
@@ -83,7 +86,10 @@ class _FolderFileWidgetState extends State<FolderFileWidget> {
                                         width: 80.0,
                                         borderRadius: 10,
                                         onPress: () {
-
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const FolderScreen()),
+                                          );
                                         },
                                       ),
                                       const SizedBox(
@@ -95,10 +101,10 @@ class _FolderFileWidgetState extends State<FolderFileWidget> {
                                         width: 80.0,
                                         borderRadius: 10,
                                         onPress: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(builder: (context) => const FolderScreen()),
-                                          // );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const FolderScreen()),
+                                          );
 
                                         },
                                       ),

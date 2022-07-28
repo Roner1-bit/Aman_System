@@ -1,14 +1,9 @@
-import 'dart:io';
-
-import 'package:aman_system/layout/cubit/cubit.dart';
-import 'package:aman_system/layout/cubit/states.dart';
 import 'package:aman_system/modules/login_page/presentation/pages/login_screen.dart';
-import 'package:aman_system/modules/login_page/presentation/widgets/login_widget.dart';
-
 import 'package:aman_system/shared/Bloc_Observer.dart';
 import 'package:aman_system/shared/components/components.dart';
+import 'package:aman_system/shared/cubit/cubit.dart';
+import 'package:aman_system/shared/cubit/status.dart';
 import 'package:aman_system/shared/network/local/cache_helper.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,11 +20,7 @@ void main()async{
     blocObserver: MyBlocObserver(),
   );
 
-
-
-
 }
-
 
 class MyApp extends StatelessWidget {
 
@@ -41,7 +32,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    sleep(const Duration(milliseconds: 500));
+
     return BlocProvider(
         create: (BuildContext context) => AppCubit(),
 
@@ -58,7 +49,7 @@ class MyApp extends StatelessWidget {
 
                 //buildMaterialColor(const Color(0x00292c35)),
               ),
-              home: const LoginWidget(),
+              home: LoginScreen(),
             );
           },
         )

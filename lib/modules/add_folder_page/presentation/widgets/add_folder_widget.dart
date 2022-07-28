@@ -1,7 +1,9 @@
-import 'package:aman_system/modules/add_folder_page/presentation/cubit/cubit.dart';
-import 'package:aman_system/modules/add_folder_page/presentation/cubit/states.dart';
-import 'package:aman_system/modules/folder_page/presentation/pages/folder_screen.dart';
+
+
+import 'package:aman_system/modules/view_folders/presentation/pages/view_folder_screen.dart';
 import 'package:aman_system/shared/components/my_button.dart';
+import 'package:aman_system/shared/cubit/cubit.dart';
+import 'package:aman_system/shared/cubit/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,9 +19,9 @@ class _AddFolderWidgetState extends State<AddFolderWidget> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return AddFolderCubit();
+        return AppCubit();
       },
-      child: BlocConsumer<AddFolderCubit,AddFolderStates>(
+      child: BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){
 
         },
@@ -92,35 +94,19 @@ class _AddFolderWidgetState extends State<AddFolderWidget> {
                                 SizedBox(
                                   width: double.infinity,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 65, right: 65),
-                                    child: Row(
-                                      children:  [
-                                        MyButton(text: 'Cancel',
-                                            backGroundColor: Colors.red,
-                                            height: 35.0,
-                                            width: 80.0,
-                                            borderRadius: 10,
-                                          onPress: () {
+                                    padding: const EdgeInsets.only( left: 10.0,right: 10.0),
+                                    child: MyButton(text: 'Create',
+                                      backGroundColor: Colors.red,
+                                      height: 35.0,
+                                      width: 80.0,
+                                      borderRadius: 10,
+                                      onPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => const ViewFolderScreen()),
+                                        );
 
-                                          },
-                                        ),
-                                        const SizedBox(
-                                          width: 30,
-                                        ),
-                                        MyButton(text: 'Create',
-                                          backGroundColor: Colors.red,
-                                          height: 35.0,
-                                          width: 80.0,
-                                          borderRadius: 10,
-                                          onPress: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => const FolderScreen()),
-                                            );
-
-                                          },
-                                        ),
-                                      ],
+                                      },
                                     ),
                                   ),
                                 )
