@@ -61,13 +61,13 @@ class _FolderWidgetState extends State<FolderWidget> {
                 ),
                 Expanded(
                   child: ListView.separated(
-                      itemBuilder: (context,index) => buildUserItem(cubit.folders[index]),
+                      itemBuilder: (context,index) => buildUserItem(cubit.subFolders[index]),
                      separatorBuilder: (context,index) => Container(
                         width: double.infinity,
                       height: 1.0,
                       color: Colors.grey[300],
                    ),
-                     itemCount: cubit.folders.length
+                     itemCount: cubit.subFolders.length
                   ),
                 ),
 
