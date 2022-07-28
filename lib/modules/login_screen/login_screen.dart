@@ -31,7 +31,9 @@ class LoginScreen extends StatelessWidget {
         () async {
 
           //ApiCalls.addSubHeader();
-          ApiCalls.deleteProjectAcc();
+          ApiCalls.addMultiMedia();
+
+
 
 
 

@@ -235,8 +235,13 @@ class ApiCalls {
       "project_Name": "manga",
       "Sub_Header": "test"+":"
     }).then((value) {
-      //emit the successful state
-      print("created successfully");
+      if(value.data.length==1){
+        print("file already exists");
+        //emit file exists.
+      }else {
+        //emit the successful state
+        print("created successfully");
+      }
     }).catchError((e) {
       print("error");
       //emit error
@@ -273,8 +278,13 @@ class ApiCalls {
       });
 
       DioHelper.addMultiMedia(query: formData).then((value) {
-        //emit the successful state
-        print("created successfully");
+        if(value.data.length==1){
+          print("file already exists");
+          //emit file exists.
+        }else {
+          //emit the successful state
+          print("created successfully");
+        }
       }).catchError((e) {
         print("error");
         //emit repeated name state
@@ -561,8 +571,13 @@ class ApiCalls {
       "project_Name": "manga",
       "Sub_Header": "test"+":"
     }).then((value) {
+      if(value.data.length==1){
+      print("file already exists");
+      //emit file exists.
+      }else {
       //emit the successful state
       print("created successfully");
+      }
     }).catchError((e) {
       print("error");
       //emit error
@@ -590,17 +605,22 @@ class ApiCalls {
       print(result.files.single.path!);
       print(result.names[0]);
       var formData = FormData.fromMap({
-        "project_ID": 1123,
+        "project_ID": 100,
         "Sub_Header": "test"+":",
         //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),
-        "project_Name": "manga",
+        "project_Name": "apple",
       });
 
       DioHelper.addMultiMediaHr(query: formData).then((value) {
-        //emit the successful state
-        print("created successfully");
+        if(value.data.length==1){
+          print("file already exists");
+          //emit file exists.
+        }else {
+          //emit the successful state
+          print("created successfully");
+        }
       }).catchError((e) {
         print("error");
         //emit repeated name state
@@ -883,10 +903,15 @@ class ApiCalls {
     DioHelper.addSubHeaderAcc(query: {
       "project_ID": 100,
       "project_Name": "apple",
-      "Sub_Header": "test2"+":"
+      "Sub_Header": "test"+":"
     }).then((value) {
-      //emit the successful state
-      print("created successfully");
+      if(value.data.length==1){
+        print("file already exists");
+        //emit file exists.
+      }else {
+        //emit the successful state
+        print("created successfully");
+      }
     }).catchError((e) {
       print("error");
       //emit error
@@ -923,8 +948,13 @@ class ApiCalls {
       });
 
       DioHelper.addMultiMediaAcc(query: formData).then((value) {
-        //emit the successful state
-        print("created successfully");
+        if(value.data.length==1){
+          print("file already exists");
+          //emit file exists.
+        }else {
+          //emit the successful state
+          print("created successfully");
+        }
       }).catchError((e) {
         print("error");
         //emit repeated name state
