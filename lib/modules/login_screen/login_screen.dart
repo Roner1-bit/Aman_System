@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:aman_system/models/ListOfUsers.dart';
+import 'package:aman_system/models/Users.dart';
 import 'package:aman_system/modules/login_screen/cubit/login_cubit.dart';
 import 'package:aman_system/modules/login_screen/cubit/login_states.dart';
 import 'package:aman_system/shared/components/components.dart';
@@ -31,9 +33,9 @@ class LoginScreen extends StatelessWidget {
         () async {
 
           //ApiCalls.addSubHeader();
-          ApiCalls.addMultiMedia();
+          var x= await ApiCalls.deleteProjectHr(projectId: 1322, projectName: "fruit");
 
-
+          print(x);
 
 
 
@@ -53,5 +55,32 @@ class LoginScreen extends StatelessWidget {
 
   );
 }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// {
+// "username": "Dany1", //change what was on the right side.
+// "password": "qweasds123",
+// }
+
+
+
+// {
+// "username": "Sha3r",
+// "password": "bxcjhfsh1",
+// "dep": "Tech"
+// }
 
 

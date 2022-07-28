@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:aman_system/models/FolderData.dart';
+import 'package:aman_system/models/ListOfUsers.dart';
 import 'package:aman_system/models/Users.dart';
 import 'package:aman_system/shared/network/remote/dio_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+
+import 'package:flutter/widgets.dart';
 
 class ApiCalls {
 
@@ -27,299 +30,204 @@ class ApiCalls {
     return list;
   }
 
+  //please don't forget to add (await) before the call of each function.
+
 
   //Users Apis
 
-  static dynamic verifyUser() {
-    // emit loading state
-
-    DioHelper.verifyUser(query: {
-      "username": "Dany1", //change what was on the right side.
-      "password": "qweasds123",
-    }).then((value) {
+  static Future<String> verifyUser({required User user}) async {
+    late String result;                                                                              //"failed" for fail state for bad connection.
+    await DioHelper.verifyUser(query:{                                                               //"success" for success state.
+      "username":user.userName,                                                                      //"wrong" for wrong name or password.
+      "password":user.password}).then((value) {                                                      //please check if it returns null just in case.
       if (value.data.length == 0) {
-        //emit login failed
-        print("Login failed");
+        result  = "failed";
       } else {
-        print("Login successfully");
-        //emit login successful
+        result= "success";
       }
     }).catchError((onError) {
-      print("Error on failed");
-      //emit failure state error
+        result= "wrong";
     });
+    return result;
   }
 
-  static dynamic createUser() {
-    // emit loading state
 
-    DioHelper.setUser(query: {
-      "username": "Sha3r", //change what was on the right side.
-      "password": "bxcjhfsh1",
-      "dep": "Tech"
+  static Future<String> createUser({required User user}) async {
+    late String result;                                                                       //"failed" for fail state for bad connection.
+    await DioHelper.setUser(query: {                                                          //"success" for success state.
+      "username": user.userName,                                                              //please check if it returns null just in case.
+      "password": user.password,
+      "dep": user.dep
     }).then((value) {
-      //emit the successful state
-      print("created successfully");
+      result= "success";
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result  = "failed";
     });
+    return result;
   }
 
-  static dynamic getUsers() {
-    //emit the loading state
-    List<User> usersList=[];
-    DioHelper.getAllUser().then((value) {
-      //emit the successful state
+  static Future<ListOfUser> getUsers() async {
+    late ListOfUser listOfUser;                                                                //[] is for no users in database
+    List<User> usersList=[];                                                                  //return of userList means success and these are the users data
+    await DioHelper.getAllUser().then((value) {                                               //["no connection"] for fail state for bad connection.
       if (value.data.length == 0 ) {
-        print("this folder is empty"); //This means the folder has no files.
+        listOfUser= ListOfUser(users: []);
       } else {
         for (int i = 0; i < value.data.length; i++) {
           usersList.add(User.fromJson(value.data[i]));
         }
+        listOfUser=ListOfUser(users: [User(userName:"no connection",password:"no connection",dep:"no connection")]);
       }
 
-      for(int i=0;i<usersList.length;i++){
-        print(usersList[i].userName);
-        print(usersList[i].password);
-        print(usersList[i].dep);
+      // ListOfUser x= await ApiCalls.getUsers();                                           //Use this in the same manner
+      // for(int i=0;i<x.users.length;i++){
+      //   print(x.users[i].userName);
+      //   print(x.users[i].password);
+      //   print(x.users[i].dep);
+      //
+      // }
 
-      }
-      print(usersList);  //This is the list of all users
-      print("created successfully");
-      //add any thing about fetching the api (call me when you want to use it).
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      listOfUser=ListOfUser(users: []);
     });
+    return listOfUser;
   }
 
 
-  static dynamic deleteUserWithPassword() async {
-    //emit loading state
-    DioHelper.deleteUserWithPassword(query: {
-      "username": "Sha3r", //change what was on the right side.
-      "password": "bxcjhfsh1",
+  static Future<String> deleteUserWithPassword({required User user}) async {
+    late String result;                                                                             //noUser is for no user with such data.
+    await DioHelper.deleteUserWithPassword(query: {                                                 //success for successful deleting.
+      "username":user.userName,"password":user.password                                             //failed for connection failure.
     }).then((value) {
       if (value.data["affectedRows"] == 0) {
-        //emit no user with such data state
-        print("no user with such data");
+        result="noUser";
       } else {
-        //emit the successful state
-        print("deleted successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="failed";
     });
+    return result;
   }
 
-  static dynamic deleteUserWithoutPassword() async {
-    //emit loading state
-    DioHelper.deleteUserWithoutPassword(query: {
-      "username": "Dany1", //change what was on the right side.
-    }).then((value) {
-      print(value.data);
+  static Future<String> deleteUserWithoutPassword({required String userName}) async {
+    late String result;
+    await DioHelper.deleteUserWithoutPassword(query: {                              //noUser is for no user with such data.
+      "username": userName,                                                         //success for successful deleting.
+    }).then((value) {                                                               //failed for connection failure.
       if (value.data["affectedRows"] == 0) {
         //emit no user with such data state
-        print("no user with such data");
+        result="noUser";
       } else {
         //emit the successful state
-        print("deleted successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="failed";
+
     });
+    return result;
   }
 
   //Tech apis
 
-  static dynamic getTechProj() {
-
-
-    //emit loading state
-    List<String> listProject=[];
-    DioHelper.getAllTech().then((value) {
+  static Future<List<String>> getTechProj() async {                                      //[] means there are no project folders.
+    List<String> listProject=[];                                                  // list of projects.
+    await DioHelper.getAllTech().then((value) {                                   //["error"] means error in connection.
       if (value.data.length == 0 ) {
-        print("this folder is empty"); //This means the folder has no files.
+        listProject=[];
       } else {
         for (int i = 0; i < value.data.length; i++) {
-         // List<Map<String, dynamic>> names = jsonDecode(value.data.toString());
-          //List<dynamic> names = value.data;
-          //print(names[0]);
-          //var x = names[0];
-          //print(x["project_Name"]);
           listProject.add(value.data[i]["project_Name"]);
-
         }
+        listProject=cleanList(listProject,true,true);
       }
-      listProject=cleanList(listProject,true,true);
 
-      print(listProject);              //this is the list of all the names of the folders of the project
-      //emit the successful state
-      print("successful");
     }).catchError((e) {
-      print("error");
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      listProject=["error"];
     });
-
+    return listProject;
   }
 
 
-  static dynamic createTechProj() {
-    //emit loading state
-    DioHelper.createTechProject(
-        query: {"project_ID": 113, "project_Name": "manga"}).then((value) {
-      //emit the successful state
-      print("created successfully");
+  static Future<String> createTechProj({required int projectID,required String projectName}) async {
+    late String result;                                                                       //success means the project was created
+    await DioHelper.createTechProject(                                                        //error means the project needs to have a different name
+        query: {"project_ID": projectID, "project_Name": projectName}).then((value) {
+      result="success";
     }).catchError((e) {
-      print("Please enter different name for project");
-      //emit repeated name state
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
     });
+    return result;
   }
 
 
-  static dynamic addSubHeader() async {
-    //emit loading state
-    DioHelper.addSubHeader(query: {
-      "project_ID": 113,
-      "project_Name": "manga",
-      "Sub_Header": "test"+":"
+  static Future<String> addSubHeader({required int projectId,required String projectName,required String folderName}) async {    //careful to add whole route to the subHeader.
+    late String result;                                                                                                   //fileExists is for file existing in the folder
+    await DioHelper.addSubHeader(query: {                                                                                 //success is for the successful state
+      "project_ID": projectId,
+      "project_Name": projectName,
+      "Sub_Header": folderName+":"
     }).then((value) {
       if(value.data.length==1){
-        print("file already exists");
-        //emit file exists.
+        result ="fileExists";
       }else {
-        //emit the successful state
-        print("created successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
+
     });
+    return result;
   }
 
 
 
 
 
-  static dynamic addMultiMedia() async {
-//emit loading state
+  static Future<String> addMultiMedia({required int projectId,required String projectName,required String folderFullRoute}) async {
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      print(result.files.single.path!);
-      print(result.names[0]);
+    late String resultMessage;                                                                //"fileExists" for exisitng files state
+    FilePickerResult? result = await FilePicker.platform.pickFiles();                         //"success" for successful state
+    if (result != null) {                                                                     //error for connection error state
       var formData = FormData.fromMap({
-        "project_ID": 113,
-        "Sub_Header": "test"+":",
+        "project_ID": projectId,
+        "Sub_Header": folderFullRoute+":",
         //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),
-        "project_Name": "manga",
+        "project_Name": projectName,
       });
 
-      DioHelper.addMultiMedia(query: formData).then((value) {
+      await DioHelper.addMultiMedia(query: formData).then((value) {
         if(value.data.length==1){
-          print("file already exists");
-          //emit file exists.
+          resultMessage="fileExists";
         }else {
-          //emit the successful state
-          print("created successfully");
+          resultMessage="success";
         }
       }).catchError((e) {
-        print("error");
-        //emit repeated name state
-        if (e.response != null) {
-          print(e.response?.data);
-          print(e.response?.headers);
-          print(e.response?.requestOptions);
-        } else {
-          print(e.requestOptions);
-          print(e.message);
-        }
+        resultMessage="error";
       });
     } else {
-      print("no file");
+        resultMessage="noFile";
     }
+    return resultMessage;
   }
 
 
 
-  static dynamic getSubHeader() async {
-    //emit loading state
-    List<String> multiMediaPaths = [];
-    List<String> folders = [];
-    int projectID=1122;
-    String projectName="manga";
-    String folderName = "test";               //For the current folder name
-    String fullRoute ="test"+":";          //This is meant for the entire route for the project
-    late int chosenTitleIndex; //This is meant to check the index of the chosen title out of the scheme
-    DioHelper.getSubHeader(query: {
+  static Future<FolderData> getSubHeader({required projectID,required String projectName,required String folderName,required String fullRoute}) async {  //folder name for current folder name
+    late FolderData folderData;                                                                                                                  //folder data object will contain the current folders and multimedia
+    List<String> multiMediaPaths = [];                                                                                                           //for error folderData will have a project name of "error"
+    List<String> folders = [];                                                                                                                    //clean the lists of any "" just incase
+    late int chosenTitleIndex;
+    await DioHelper.getSubHeader(query: {
       "project_ID": projectID,
       "project_Name": projectName,
-      "Sub_Header": fullRoute
+      "Sub_Header": fullRoute+":"
     }).then((value) {
       if (value.data.length == 1 && value.data[0]["multi_media"] == "") {
-        print("this folder is empty"); //This means the folder has no files.
+        folderData=FolderData(projectID: projectID, projectName: projectName, subHeaders: [], multiMediaPaths: []);
       } else {
         for (int i = 0; i < value.data.length; i++) {
           List<String> subHeaderList = value.data[i]["sub_header"].split(":");
@@ -327,8 +235,6 @@ class ApiCalls {
           if (subHeaderList.length == 1) {
             multiMediaPaths.add(value.data[i]["multi_media"]);
           } else {
-            print(subHeaderList);
-            print(folderName);
             for (int j = 0; j < subHeaderList.length; j++) {
               if (subHeaderList[j] == folderName) {
                 chosenTitleIndex = j;
@@ -345,40 +251,28 @@ class ApiCalls {
         }
         multiMediaPaths = cleanList(multiMediaPaths,true,false);
         folders = cleanList(folders,true,true);
-        FolderData folder = FolderData(projectID: projectID,
+        folderData = FolderData(projectID: projectID,
             projectName: projectName,
             subHeaders: folders,
             multiMediaPaths: multiMediaPaths);
-        print(folder.subHeaders);
-        print(folder.multiMediaPaths);
       }
-      //emit the successful state
-      print("created successfully");
     }).catchError((e) {
-      print(e);
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+        folderData=FolderData(projectID: 000, projectName: "error", subHeaders: [], multiMediaPaths: []);
     });
+    return folderData;
   }
 
 
 
-  static dynamic getProjectSubHeaders() async {
-    //emit loading state
-    List<String> listSubHeadersProject=[];
-    DioHelper.getProjectSubHeader(query: {
-      "project_ID":113,
-      "project_Name":"manga",
+  static Future<List<String>> getProjectSubHeaders({required projectId,projectName}) async {
+
+    List<String> listSubHeadersProject=[];                                                                    //listSubHeader array will contain all folders
+    await DioHelper.getProjectSubHeader(query: {                                                              //[] for empty
+      "project_ID":projectId,                                                                                 //["error"] for bad connection
+      "project_Name":projectName,
     }).then((value) {
       if (value.data.length == 0 ) {
-        print("this folder is empty"); //This means the folder has no files.
+        listSubHeadersProject=[];
       } else {
         for (int i = 0; i < value.data.length; i++) {
           List<String> subHeaderList = value.data[i]["sub_header"].split(":");
@@ -392,112 +286,70 @@ class ApiCalls {
       }
       listSubHeadersProject=cleanList(listSubHeadersProject,true,true);
 
-      print(listSubHeadersProject);              //this is the list of all the names of the folders of the project
-      //emit the successful state
-      print("successful");
     }).catchError((e) {
-      print("error");
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      listSubHeadersProject=["error"];
+
     });
+    return listSubHeadersProject;
   }
 
-  static dynamic deleteSubHeaders() async {
-  //emit loading state
-  DioHelper.deleteSubHeader(query: {
-    "project_ID":113,
-    "project_Name":"manga",
-    "Sub_Header":"test"+":"
+
+  static Future<String> deleteSubHeaders({required projectId,projectName,fullRoute}) async {
+  late String result;
+  await DioHelper.deleteSubHeader(query: {                                                   //FileDoesNotExist is meant when no folder exists
+    "project_ID":projectId,                                                                  //success is for success state
+    "project_Name":projectName,                                                              //error for fail state
+    "Sub_Header":fullRoute+":"
   }).then((value) {
-  print(value.data);
   if (value.data["affectedRows"] == 0) {
-  //emit no subHeader with such data state
-  print("no user with such data");
+    result="FileDoesNotExist";
   } else {
-  //emit the successful state
-  print("deleted successfully");
+
+  result="success";
   }
   }).catchError((e) {
-  print("error");
-  //emit failed error
-  if (e.response != null) {
-  print(e.response?.data);
-  print(e.response?.headers);
-  print(e.response?.requestOptions);
-  } else {
-  print(e.requestOptions);
-  print(e.message);
-  }
+  result="error";
   });
-
+  return result;
   }
 
 
-  static dynamic deleteMultiMedia() async {
-    //emit loading state
-    DioHelper.deleteMultiMedia(query: {
-      "project_ID":113,
-      "project_Name":"manga",
-      "Sub_Header":"test"+":",
-      "multi_media":"http://192.168.1.11/EL_EMAN/server/multi_media/tech/113manga/test/s.png"
+  static Future<String> deleteMultiMedia({required projectId,projectName,fullRoute,multiMediaLink}) async {
+    late String result;
+    await DioHelper.deleteMultiMedia(query: {                                           //FileDoesNotExist is meant when no folder exists
+      "project_ID":projectId,                                                           //success is for success state
+      "project_Name":projectName,                                                       //error for fail state
+      "Sub_Header":fullRoute+":",
+      "multi_media":multiMediaLink
     }).then((value) {
-      print(value.data);
       if (value.data["affectedRows"] == 0) {
-        //emit no subHeader with such data state
-        print("no user with such data");
+        result="FileDoesNotExist";
       } else {
-        //emit the successful state
-        print("deleted successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
     });
-
+      return result;
   }
 
 
-  static dynamic deleteProject() async {
-    //emit loading state
-    DioHelper.deleteProject(query: {
-      "project_ID":113,
-      "project_Name":"manga",
+  static Future<String> deleteProject({required projectId,projectName}) async {
+    late String result;
+    await DioHelper.deleteProject(query: {
+      "project_ID":projectId,
+      "project_Name":projectName,
     }).then((value) {
-      print(value.data);
+
       if (value.data["affectedRows"] == 0) {
-        //emit no subHeader with such data state
-        print("no project with such data");
+        result="FileDoesNotExist";
       } else {
-        //emit the successful state
-        print("deleted successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
     });
+    return result;
 
   }
 
@@ -506,167 +358,118 @@ class ApiCalls {
   //HR api calls
 
 
-  static dynamic getHrProj() {
+  static Future<List<String>> getHrProj() async {
 
 
-    //emit loading state
     List<String> listHrProject=[];
-    DioHelper.getAllHr().then((value) {
+    await DioHelper.getAllHr().then((value) {
       if (value.data.length == 0 ) {
-        print("this folder is empty"); //This means the folder has no files.
+        listHrProject=[];
       } else {
         for (int i = 0; i < value.data.length; i++) {
-
           listHrProject.add(value.data[i]["project_Name"]);
-
         }
+        listHrProject=cleanList(listHrProject,true,true);
       }
-      listHrProject=cleanList(listHrProject,true,true);
 
-      print(listHrProject);              //this is the list of all the names of the folders of the project
-      //emit the successful state
-      print("successful");
     }).catchError((e) {
-      print("error");
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      listHrProject=["error"];
     });
-
+    return listHrProject;
   }
 
 
 
-  static dynamic createHrProj() {
-    //emit loading state
-    DioHelper.createHrProject(
-        query: {"project_ID": 100, "project_Name": "apple"}).then((value) {
-      //emit the successful state
-      print("created successfully");
+
+  static Future<String> createHrProj({required int projectID,required String projectName}) async {
+    late String result;
+    await DioHelper.createHrProject(
+        query: {"project_ID": projectID, "project_Name": projectName}).then((value) {
+      result="success";
     }).catchError((e) {
-      print("Please enter different name for project");
-      //emit repeated name state
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
     });
+    return result;
   }
 
 
-  static dynamic addSubHeaderHr() async {
-    //emit loading state
-    DioHelper.addSubHeaderHr(query: {
-      "project_ID": 1123,
-      "project_Name": "manga",
-      "Sub_Header": "test"+":"
+  static Future<String> addSubHeaderHr({required int projectId,required String projectName,required String folderName}) async {
+    late String result;
+    await DioHelper.addSubHeaderHr(query: {
+      "project_ID": projectId,
+      "project_Name": projectName,
+      "Sub_Header": folderName+":"
     }).then((value) {
       if(value.data.length==1){
-      print("file already exists");
-      //emit file exists.
+        result ="fileExists";
       }else {
-      //emit the successful state
-      print("created successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
+
     });
+    return result;
   }
 
 
 
 
 
-  static dynamic addMultiMediaHr() async {
-//emit loading state
 
+  static Future<String> addMultiMediaHr({required int projectId,required String projectName,required String folderFullRoute}) async {
+
+    late String resultMessage;
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-    if (result != null) {
-      print(result.files.single.path!);
-      print(result.names[0]);
+    if (result != null) {                                                                     //error for connection error state
       var formData = FormData.fromMap({
-        "project_ID": 100,
-        "Sub_Header": "test"+":",
+        "project_ID": projectId,
+        "Sub_Header": folderFullRoute+":",
         //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),
-        "project_Name": "apple",
+        "project_Name": projectName,
       });
 
-      DioHelper.addMultiMediaHr(query: formData).then((value) {
+      await DioHelper.addMultiMediaHr(query: formData).then((value) {
         if(value.data.length==1){
-          print("file already exists");
-          //emit file exists.
+          resultMessage="fileExists";
         }else {
-          //emit the successful state
-          print("created successfully");
+          resultMessage="success";
         }
       }).catchError((e) {
-        print("error");
-        //emit repeated name state
-        if (e.response != null) {
-          print(e.response?.data);
-          print(e.response?.headers);
-          print(e.response?.requestOptions);
-        } else {
-          print(e.requestOptions);
-          print(e.message);
-        }
+        resultMessage="error";
       });
     } else {
-      print("no file");
+      resultMessage="noFile";
     }
+    return resultMessage;
   }
 
 
 
-  static dynamic getSubHeaderHr() async {
-    //emit loading state
+
+  static Future<FolderData> getSubHeaderHr({required projectID,required String projectName,required String folderName,required String fullRoute}) async {
+    late FolderData folderData;
     List<String> multiMediaPaths = [];
     List<String> folders = [];
-    int projectID=1122;
-    String projectName="manga";
-    String folderName = "test";               //For the current folder name
-    String fullRoute ="test"+":";          //This is meant for the entire route for the project
-    late int chosenTitleIndex; //This is meant to check the index of the chosen title out of the scheme
-    DioHelper.getSubHeaderHr(query: {
+    late int chosenTitleIndex;
+    await DioHelper.getSubHeaderHr(query: {
       "project_ID": projectID,
       "project_Name": projectName,
       "Sub_Header": fullRoute
     }).then((value) {
 
       if (value.data.length == 1 && value.data[0]["multi_media"] == "") {
-        print("this folder is empty"); //This means the folder has no files.
+        folderData=FolderData(projectID: projectID, projectName: projectName, subHeaders: [], multiMediaPaths: []);
       } else {
-        print(value.data.length);
         for (int i = 0; i < value.data.length; i++) {
           List<String> subHeaderList = value.data[i]["Sub_Headers"].split(":");
           subHeaderList = cleanList(subHeaderList,false,true);
           if (subHeaderList.length == 1) {
             multiMediaPaths.add(value.data[i]["multi_media"]);
           } else {
-            print(subHeaderList);
-            print(folderName);
             for (int j = 0; j < subHeaderList.length; j++) {
               if (subHeaderList[j] == folderName) {
                 chosenTitleIndex = j;
@@ -682,40 +485,27 @@ class ApiCalls {
         }
         multiMediaPaths = cleanList(multiMediaPaths,true,false);
         folders = cleanList(folders,true,true);
-        FolderData folder = FolderData(projectID: projectID,
+        folderData = FolderData(projectID: projectID,
             projectName: projectName,
             subHeaders: folders,
             multiMediaPaths: multiMediaPaths);
-
-        print(folder.subHeaders);
-        print(folder.multiMediaPaths);
       }
-      //emit the successful state
-      print("created successfully");
     }).catchError((e) {
-      print(e);
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      folderData=FolderData(projectID: 000, projectName: "error", subHeaders: [], multiMediaPaths: []);
     });
+    return folderData;
   }
 
 
-  static dynamic getProjectSubHeadersHr() async {
-    //emit loading state
+  static Future<List<String>> getProjectSubHeadersHr({required projectId,projectName}) async {
+
     List<String> listSubHeadersProject=[];
-    DioHelper.getProjectSubHeaderHr(query: {
-      "project_ID":1123,
-      "project_Name":"manga",
+    await DioHelper.getProjectSubHeaderHr(query: {
+      "project_ID":projectId,
+      "project_Name":projectName,
     }).then((value) {
       if (value.data.length == 0 ) {
-        print("this folder is empty"); //This means the folder has no files.
+        listSubHeadersProject=[];
       } else {
         for (int i = 0; i < value.data.length; i++) {
           List<String> subHeaderList = value.data[i]["Sub_Headers"].split(":");
@@ -729,112 +519,72 @@ class ApiCalls {
       }
       listSubHeadersProject=cleanList(listSubHeadersProject,true,true);
 
-      print(listSubHeadersProject);              //this is the list of all the names of the folders of the project
-      //emit the successful state
-      print("successful");
     }).catchError((e) {
       print("error");
-      //emit error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      listSubHeadersProject=["error"];
     });
+
+    return listSubHeadersProject;
   }
 
-  static dynamic deleteSubHeadersHr() async {
-    //emit loading state
-    DioHelper.deleteSubHeaderHr(query: {
-      "project_ID":1222,
-      "project_Name":"mangso",
-      "Sub_Header":"booty"+":"
+  static Future<String> deleteSubHeadersHr({required projectId,projectName,fullRoute}) async {
+    late String result;
+    await DioHelper.deleteSubHeaderHr(query: {
+      "project_ID":projectId,
+      "project_Name":projectName,
+      "Sub_Header":fullRoute+":"
     }).then((value) {
       print(value.data);
       if (value.data["affectedRows"] == 0) {
         //emit no subHeader with such data state
-        print("no user with such data");
+        result="FileDoesNotExist";
       } else {
-        //emit the successful state
-        print("deleted successfully");
+
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
     });
-
+    return result;
   }
 
 
-  static dynamic deleteMultiMediaHr() async {
-    //emit loading state
-    DioHelper.deleteMultiMediaHr(query: {
-      "project_ID":1123,
-      "project_Name":"manga",
-      "Sub_Header":"test"+":",
-      "multi_media":"http://192.168.1.11/EL_EMAN/server/multi_media/HR/1123manga/test/result.png"
+  static Future<String> deleteMultiMediaHr({required projectId,projectName,fullRoute,multiMediaLink}) async {
+    late String result;
+    await DioHelper.deleteMultiMediaHr(query: {
+      "project_ID":projectId,
+      "project_Name":projectName,
+      "Sub_Header":fullRoute+":",
+      "multi_media":multiMediaLink
     }).then((value) {
-      print(value.data);
       if (value.data["affectedRows"] == 0) {
-        //emit no subHeader with such data state
-        print("no user with such data");
+        result="FileDoesNotExist";
       } else {
-        //emit the successful state
-        print("deleted successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
     });
-
+    return result;
   }
 
 
-  static dynamic deleteProjectHr() async {
-    //emit loading state
-    DioHelper.deleteProjectHr(query: {
-      "project_ID":1123,
-      "project_Name":"manga",
+  static Future<String> deleteProjectHr({required projectId,projectName}) async {
+    late String result;
+    await DioHelper.deleteProjectHr(query: {
+      "project_ID":projectId,
+      "project_Name":projectName,
     }).then((value) {
-      print(value.data);
+
       if (value.data["affectedRows"] == 0) {
-        //emit no subHeader with such data state
-        print("no project with such data");
+        result="FileDoesNotExist";
       } else {
-        //emit the successful state
-        print("deleted successfully");
+        result="success";
       }
     }).catchError((e) {
-      print("error");
-      //emit failed error
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-      } else {
-        print(e.requestOptions);
-        print(e.message);
-      }
+      result="error";
     });
+    return result;
 
   }
 
@@ -1170,8 +920,6 @@ class ApiCalls {
     });
 
   }
-
-
 
 }
 
