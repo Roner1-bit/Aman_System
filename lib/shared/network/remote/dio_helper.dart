@@ -192,6 +192,77 @@ static getAllTech() async{
   }
 
 
+  //acc api
+
+
+
+  static getAllAcc() async{
+    return await dio.get(
+      getAllAccTable,
+    );
+
+  }
+
+  static createAccProject({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      createAccProject_,
+      data: query,
+    );
+  }
+
+  static addMultiMediaAcc({required FormData query}) async {
+    return await dio.post(
+      addMultiMediaAcc_,
+      data: query,
+    );
+  }
+
+  static addSubHeaderAcc({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      addSubHeaderAcc_,
+      data: query,
+    );
+  }
+
+
+  static getSubHeaderAcc({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      getSubHeaderAcc_,
+      data: query,
+    );
+  }
+
+
+  static getProjectSubHeaderAcc({required Map<String, dynamic> query}) async {
+    return await dio.post(
+      getProjectSubHeaderAcc_,
+      data: query,
+    );
+  }
+
+  static deleteSubHeaderAcc({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteSubHeaderAcc_,
+      data: query,
+    );
+  }
+
+
+  static deleteMultiMediaAcc({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteMultiMediaAcc_,
+      data: query,
+    );
+  }
+
+  static deleteProjectAcc({required Map<String, dynamic> query}) async {
+    return await dio.delete(
+      deleteProjectAcc_,
+      data: query,
+    );
+
+  }
+
 
 
 }

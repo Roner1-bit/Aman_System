@@ -298,12 +298,14 @@ class ApiCalls {
     //emit loading state
     List<String> multiMediaPaths = [];
     List<String> folders = [];
+    int projectID=1122;
+    String projectName="manga";
     String folderName = "test";               //For the current folder name
     String fullRoute ="test"+":";          //This is meant for the entire route for the project
     late int chosenTitleIndex; //This is meant to check the index of the chosen title out of the scheme
     DioHelper.getSubHeader(query: {
-      "project_ID": 113,
-      "project_Name": "manga",
+      "project_ID": projectID,
+      "project_Name": projectName,
       "Sub_Header": fullRoute
     }).then((value) {
       if (value.data.length == 1 && value.data[0]["multi_media"] == "") {
@@ -333,8 +335,8 @@ class ApiCalls {
         }
         multiMediaPaths = cleanList(multiMediaPaths,true,false);
         folders = cleanList(folders,true,true);
-        FolderData folder = FolderData(projectID: 1123,
-            projectName: "manga",
+        FolderData folder = FolderData(projectID: projectID,
+            projectName: projectName,
             subHeaders: folders,
             multiMediaPaths: multiMediaPaths);
         print(folder.subHeaders);
@@ -622,12 +624,14 @@ class ApiCalls {
     //emit loading state
     List<String> multiMediaPaths = [];
     List<String> folders = [];
+    int projectID=1122;
+    String projectName="manga";
     String folderName = "test";               //For the current folder name
     String fullRoute ="test"+":";          //This is meant for the entire route for the project
     late int chosenTitleIndex; //This is meant to check the index of the chosen title out of the scheme
     DioHelper.getSubHeaderHr(query: {
-      "project_ID": 1123,
-      "project_Name": "manga",
+      "project_ID": projectID,
+      "project_Name": projectName,
       "Sub_Header": fullRoute
     }).then((value) {
 
@@ -658,8 +662,8 @@ class ApiCalls {
         }
         multiMediaPaths = cleanList(multiMediaPaths,true,false);
         folders = cleanList(folders,true,true);
-        FolderData folder = FolderData(projectID: 113,
-            projectName: "manga",
+        FolderData folder = FolderData(projectID: projectID,
+            projectName: projectName,
             subHeaders: folders,
             multiMediaPaths: multiMediaPaths);
 
@@ -814,6 +818,328 @@ class ApiCalls {
 
   }
 
+  //Acc api here
+
+  static dynamic getAccProj() {
+
+
+    //emit loading state
+    List<String> listAccProject=[];
+    DioHelper.getAllAcc().then((value) {
+      if (value.data.length == 0 ) {
+        print("this folder is empty"); //This means the folder has no files.
+      } else {
+        for (int i = 0; i < value.data.length; i++) {
+
+          listAccProject.add(value.data[i]["project_Name"]);
+
+        }
+      }
+      listAccProject=cleanList(listAccProject,true,true);
+
+      print(listAccProject);              //this is the list of all the names of the folders of the project
+      //emit the successful state
+      print("successful");
+    }).catchError((e) {
+      print("error");
+      //emit error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+
+  }
+
+
+
+  static dynamic createAccProj() {
+    //emit loading state
+    DioHelper.createAccProject(
+        query: {"project_ID": 100, "project_Name": "apple"}).then((value) {
+      //emit the successful state
+      print("created successfully");
+    }).catchError((e) {
+      print("Please enter different name for project");
+      //emit repeated name state
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+  }
+
+
+  static dynamic addSubHeaderAcc() async {
+    //emit loading state
+    DioHelper.addSubHeaderAcc(query: {
+      "project_ID": 100,
+      "project_Name": "apple",
+      "Sub_Header": "test2"+":"
+    }).then((value) {
+      //emit the successful state
+      print("created successfully");
+    }).catchError((e) {
+      print("error");
+      //emit error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+  }
+
+
+
+
+
+  static dynamic addMultiMediaAcc() async {
+    //emit loading state
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      print(result.files.single.path!);
+      print(result.names[0]);
+      var formData = FormData.fromMap({
+        "project_ID": 100,
+        "Sub_Header": "test"+":",
+        //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
+        "multi_media": await MultipartFile.fromFile(result.files.single.path!,
+            filename: result.names[0]),
+        "project_Name": "apple",
+      });
+
+      DioHelper.addMultiMediaAcc(query: formData).then((value) {
+        //emit the successful state
+        print("created successfully");
+      }).catchError((e) {
+        print("error");
+        //emit repeated name state
+        if (e.response != null) {
+          print(e.response?.data);
+          print(e.response?.headers);
+          print(e.response?.requestOptions);
+        } else {
+          print(e.requestOptions);
+          print(e.message);
+        }
+      });
+    } else {
+      print("no file");
+    }
+  }
+
+
+
+  static dynamic getSubHeaderAcc() async {
+    //emit loading state
+    List<String> multiMediaPaths = [];
+    List<String> folders = [];
+    int projectID=100;
+    String projectName="apple";
+    String folderName = "test";               //For the current folder name
+    String fullRoute ="test"+":";          //This is meant for the entire route for the project
+    late int chosenTitleIndex; //This is meant to check the index of the chosen title out of the scheme
+    DioHelper.getSubHeaderAcc(query: {
+      "project_ID": projectID,
+      "project_Name": projectName,
+      "Sub_Header": fullRoute
+    }).then((value) {
+      if (value.data.length == 1 && value.data[0]["multi_media"] == "") {
+        print("this folder is empty"); //This means the folder has no files.
+      } else {
+        print(value.data.length);
+        for (int i = 0; i < value.data.length; i++) {
+          List<String> subHeaderList = value.data[i]["sub_header"].split(":");
+          subHeaderList = cleanList(subHeaderList,false,true);
+          if (subHeaderList.length == 1) {
+            multiMediaPaths.add(value.data[i]["multi_media"]);
+          } else {
+            print(subHeaderList);
+            print(folderName);
+            for (int j = 0; j < subHeaderList.length; j++) {
+              if (subHeaderList[j] == folderName) {
+                chosenTitleIndex = j;
+                break;
+              }
+            }
+            if (chosenTitleIndex != subHeaderList.length - 1) {
+              folders.add(subHeaderList[chosenTitleIndex + 1]);
+            }else{
+              multiMediaPaths.add(value.data[i]["multi_media"]);
+            }
+          }
+        }
+        multiMediaPaths = cleanList(multiMediaPaths,true,false);
+        folders = cleanList(folders,true,true);
+        FolderData folder = FolderData(projectID: projectID,
+            projectName: projectName,
+            subHeaders: folders,
+            multiMediaPaths: multiMediaPaths);
+
+        print(folder.subHeaders);
+        print(folder.multiMediaPaths);
+      }
+      //emit the successful state
+      print("created successfully");
+    }).catchError((e) {
+      print(e);
+      //emit error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+  }
+
+
+  static dynamic getProjectSubHeadersAcc() async {
+    //emit loading state
+    List<String> listSubHeadersProject=[];
+    DioHelper.getProjectSubHeaderAcc(query: {
+      "project_ID":100,
+      "project_Name":"apple",
+    }).then((value) {
+      if (value.data.length == 0 ) {
+        print("this folder is empty"); //This means the folder has no files.
+      } else {
+        for (int i = 0; i < value.data.length; i++) {
+          List<String> subHeaderList = value.data[i]["sub_header"].split(":");
+          subHeaderList = cleanList(subHeaderList,false,true);
+          if (subHeaderList.length == 1) {
+            listSubHeadersProject.add(subHeaderList[0]);
+          }else{
+            listSubHeadersProject.add(subHeaderList[0]);
+          }
+        }
+      }
+      listSubHeadersProject=cleanList(listSubHeadersProject,true,true);
+
+      print(listSubHeadersProject);              //this is the list of all the names of the folders of the project
+      //emit the successful state
+      print("successful");
+    }).catchError((e) {
+      print("error");
+      //emit error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+  }
+
+  static dynamic deleteSubHeadersAcc() async {
+    //emit loading state
+    DioHelper.deleteSubHeaderAcc(query: {
+      "project_ID":100,
+      "project_Name":"apple",
+      "Sub_Header":"test"+":"
+    }).then((value) {
+      print(value.data);
+      if (value.data["affectedRows"] == 0) {
+        //emit no subHeader with such data state
+        print("no user with such data");
+      } else {
+        //emit the successful state
+        print("deleted successfully");
+      }
+    }).catchError((e) {
+      print("error");
+      //emit failed error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+
+  }
+
+
+  static dynamic deleteMultiMediaAcc() async {
+    //emit loading state
+    DioHelper.deleteMultiMediaAcc(query: {
+      "project_ID":100,
+      "project_Name":"apple",
+      "Sub_Header":"test"+":",
+      "multi_media":"http://192.168.1.11/EL_EMAN/server/multi_media/acc/100apple/test/s.png"
+    }).then((value) {
+      print(value.data);
+      if (value.data["affectedRows"] == 0) {
+        //emit no subHeader with such data state
+        print("no user with such data");
+      } else {
+        //emit the successful state
+        print("deleted successfully");
+      }
+    }).catchError((e) {
+      print("error");
+      //emit failed error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+
+  }
+
+
+  static dynamic deleteProjectAcc() async {
+    //emit loading state
+    DioHelper.deleteProjectAcc(query: {
+      "project_ID":100,
+      "project_Name":"apple",
+    }).then((value) {
+      print(value.data);
+      if (value.data["affectedRows"] == 0) {
+        //emit no subHeader with such data state
+        print("no project with such data");
+      } else {
+        //emit the successful state
+        print("deleted successfully");
+      }
+    }).catchError((e) {
+      print("error");
+      //emit failed error
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+      } else {
+        print(e.requestOptions);
+        print(e.message);
+      }
+    });
+
+  }
 
 
 
