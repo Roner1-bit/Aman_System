@@ -33,11 +33,8 @@ class LoginScreen extends StatelessWidget {
         () async {
 
           //ApiCalls.addSubHeader();
-          var x= await ApiCalls.deleteProjectHr(projectId: 1322, projectName: "fruit");
-
+          var x= await ApiCalls.deleteProjectAcc(projectId: 1322, projectName: "fruit");
           print(x);
-
-
 
       }
 
