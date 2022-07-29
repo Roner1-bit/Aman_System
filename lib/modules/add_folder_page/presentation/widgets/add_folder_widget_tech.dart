@@ -1,31 +1,29 @@
 
 
-import 'package:aman_system/modules/view_folders/presentation/pages/view_folder_screen.dart';
+
+import 'package:aman_system/modules/hr_pages/presentation/cubit/cubit_hr.dart';
+import 'package:aman_system/modules/hr_pages/presentation/cubit/states_hr.dart';
 import 'package:aman_system/shared/components/my_button.dart';
-import 'package:aman_system/shared/cubit/cubit.dart';
-import 'package:aman_system/shared/cubit/status.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddFolderWidget extends StatefulWidget {
-  const AddFolderWidget({Key? key}) : super(key: key);
+class AddFolderWidgetTech extends StatelessWidget {
+  const AddFolderWidgetTech({Key? key}) : super(key: key);
 
-  @override
-  State<AddFolderWidget> createState() => _AddFolderWidgetState();
-}
 
-class _AddFolderWidgetState extends State<AddFolderWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return AppCubit();
+        return HrCubit();
       },
-      child: BlocConsumer<AppCubit,AppStates>(
+      child: BlocConsumer<HrCubit,HrStates>(
         listener: (context,state){
 
         },
         builder: (context,state) {
+          HrCubit cubit = HrCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               child: Column(
@@ -78,6 +76,7 @@ class _AddFolderWidgetState extends State<AddFolderWidget> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 20, right: 20),
                                     child: TextFormField(
+                                      controller: cubit.projectName,
                                       obscureText: false,
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: const InputDecoration(
@@ -101,16 +100,13 @@ class _AddFolderWidgetState extends State<AddFolderWidget> {
                                       width: 80.0,
                                       borderRadius: 10,
                                       onPress: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => const ViewFolderScreen()),
-                                        );
-
+                                      cubit.createProjectHR();
+                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                          content: Text("Project Added Successfully")));
                                       },
                                     ),
                                   ),
                                 )
-
                               ],
                           ),
                         ),

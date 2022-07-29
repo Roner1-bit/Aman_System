@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:aman_system/models/FolderData.dart';
 import 'package:aman_system/models/ListOfUsers.dart';
 import 'package:aman_system/models/Users.dart';
+import 'package:aman_system/models/projectData.dart';
 import 'package:aman_system/shared/network/remote/dio_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -141,23 +140,32 @@ class ApiCalls {
 
   //Tech apis
 
-  static Future<List<String>> getTechProj() async {
+  static Future<List<ProjectData>> getTechProj() async {
     //[] means there are no project folders.
+    List<ProjectData> projectData = [];
     List<String> listProject = []; // list of projects.
+    List<String> listProjectId = [];
     await DioHelper.getAllTech().then((value) {
       //["error"] means error in connection.
       if (value.data.length == 0) {
-        listProject = [];
+        projectData = [];
       } else {
         for (int i = 0; i < value.data.length; i++) {
           listProject.add(value.data[i]["project_Name"]);
+          listProjectId.add(value.data[i]["project_id"].toString());
         }
         listProject = cleanList(listProject, true, true);
+        listProjectId = cleanList(listProjectId, true, true);
+
+        for (int i = 0; i < listProject.length; i++) {
+          projectData.add(ProjectData(
+              projectID: listProjectId[i], projectName: listProject[i]));
+        }
       }
     }).catchError((e) {
-      listProject = ["error"];
+      projectData = [ProjectData(projectID: "error", projectName: "error")];
     });
-    return listProject;
+    return projectData;
   }
 
   static Future<String> createTechProj(
@@ -208,8 +216,8 @@ class ApiCalls {
       //error for connection error state
       var formData = FormData.fromMap({
         "project_ID": projectId,
-        "Sub_Header": folderFullRoute + ":",
-        //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
+        "Sub_Header": folderFullRoute +
+            ":", //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),
         "project_Name": projectName,
@@ -292,7 +300,7 @@ class ApiCalls {
   }
 
   static Future<List<String>> getProjectSubHeaders(
-      {required projectId, projectName}) async {
+      {required projectId,required projectName}) async {
     List<String> listSubHeadersProject =
         []; //listSubHeader array will contain all folders
     await DioHelper.getProjectSubHeader(query: {
@@ -321,7 +329,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteSubHeaders(
-      {required projectId, projectName, fullRoute}) async {
+      {required projectId,required projectName,required fullRoute}) async {
     late String result;
     await DioHelper.deleteSubHeader(query: {
       //FileDoesNotExist is meant when no folder exists
@@ -341,7 +349,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteMultiMedia(
-      {required projectId, projectName, fullRoute, multiMediaLink}) async {
+      {required projectId,required projectName,required fullRoute,required multiMediaLink}) async {
     late String result;
     await DioHelper.deleteMultiMedia(query: {
       //FileDoesNotExist is meant when no folder exists
@@ -361,7 +369,7 @@ class ApiCalls {
     return result;
   }
 
-  static Future<String> deleteProject({required projectId, projectName}) async {
+  static Future<String> deleteProject({required projectId,required projectName}) async {
     late String result;
     await DioHelper.deleteProject(query: {
       "project_ID": projectId,
@@ -380,21 +388,28 @@ class ApiCalls {
 
   //HR api calls
 
-  static Future<List<String>> getHrProj() async {
-    List<String> listHrProject = [];
+  static Future<List<ProjectData>> getHrProj() async {
+    List<ProjectData> projectData = [];
+    List<String> listProject = []; // list of projects.
+    List<String> listProjectId = [];
     await DioHelper.getAllHr().then((value) {
       if (value.data.length == 0) {
-        listHrProject = [];
+        projectData = [];
       } else {
         for (int i = 0; i < value.data.length; i++) {
-          listHrProject.add(value.data[i]["project_Name"]);
+          listProject.add(value.data[i]["project_Name"]);
+          listProjectId.add(value.data[i]["project_ID"].toString());
         }
-        listHrProject = cleanList(listHrProject, true, true);
+        listProject = cleanList(listProject, true, true);
+        listProjectId = cleanList(listProjectId, true, true);
+        for (int i = 0; i < listProject.length; i++) {
+          projectData.add(ProjectData(projectID: listProjectId[i], projectName: listProject[i]));
+        }
       }
     }).catchError((e) {
-      listHrProject = ["error"];
+      projectData = [ProjectData(projectID: "error", projectName: "error")];
     });
-    return listHrProject;
+    return projectData;
   }
 
   static Future<String> createHrProj(
@@ -523,7 +538,7 @@ class ApiCalls {
   }
 
   static Future<List<String>> getProjectSubHeadersHr(
-      {required projectId, projectName}) async {
+      {required projectId,required projectName}) async {
     List<String> listSubHeadersProject = [];
     await DioHelper.getProjectSubHeaderHr(query: {
       "project_ID": projectId,
@@ -552,7 +567,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteSubHeadersHr(
-      {required projectId, projectName, fullRoute}) async {
+      {required projectId,required projectName,required fullRoute}) async {
     late String result;
     await DioHelper.deleteSubHeaderHr(query: {
       "project_ID": projectId,
@@ -572,7 +587,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteMultiMediaHr(
-      {required projectId, projectName, fullRoute, multiMediaLink}) async {
+      {required projectId,required projectName,required fullRoute,required multiMediaLink}) async {
     late String result;
     await DioHelper.deleteMultiMediaHr(query: {
       "project_ID": projectId,
@@ -592,7 +607,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteProjectHr(
-      {required projectId, projectName}) async {
+      {required projectId,required projectName}) async {
     late String result;
     await DioHelper.deleteProjectHr(query: {
       "project_ID": projectId,
@@ -611,21 +626,29 @@ class ApiCalls {
 
   //Acc api here
 
-  static Future<List<String>> getAccProj() async {
-    List<String> listHrProject = [];
+  static Future<List<ProjectData>> getAccProj() async {
+    List<ProjectData> projectData = [];
+    List<String> listProject = [];
+    List<String> listProjectId = [];
     await DioHelper.getAllAcc().then((value) {
       if (value.data.length == 0) {
-        listHrProject = [];
+        projectData = [];
       } else {
         for (int i = 0; i < value.data.length; i++) {
-          listHrProject.add(value.data[i]["project_Name"]);
+          listProject.add(value.data[i]["project_Name"]);
+          listProjectId.add(value.data[i]["project_id"].toString());
         }
-        listHrProject = cleanList(listHrProject, true, true);
+        listProject = cleanList(listProject, true, true);
+        listProjectId = cleanList(listProjectId, true, true);
+        for (int i = 0; i < listProject.length; i++) {
+          projectData.add(ProjectData(
+              projectID: listProjectId[i], projectName: listProject[i]));
+        }
       }
     }).catchError((e) {
-      listHrProject = ["error"];
+      projectData = [ProjectData(projectID: "error", projectName: "error")];
     });
-    return listHrProject;
+    return projectData;
   }
 
   static Future<String> createAccProj(
@@ -754,7 +777,7 @@ class ApiCalls {
   }
 
   static Future<List<String>> getProjectSubHeadersAcc(
-      {required projectId, projectName}) async {
+      {required projectId, required projectName}) async {
     List<String> listSubHeadersProject = [];
     await DioHelper.getProjectSubHeaderAcc(query: {
       "project_ID": projectId,
@@ -783,7 +806,7 @@ class ApiCalls {
   }
 
   static dynamic deleteSubHeadersAcc(
-      {required projectId, projectName, fullRoute}) async {
+      {required projectId, required projectName,required fullRoute}) async {
     late String result;
     await DioHelper.deleteSubHeaderAcc(query: {
       "project_ID": projectId,
@@ -802,13 +825,14 @@ class ApiCalls {
     return result;
   }
 
-  static Future<String> deleteMultiMediaAcc({required projectId, projectName, fullRoute, multiMediaLink}) async {
+  static Future<String> deleteMultiMediaAcc(
+      {required projectId,required projectName,required fullRoute,required multiMediaLink}) async {
     late String result;
     await DioHelper.deleteMultiMediaAcc(query: {
       "project_ID": projectId,
       "project_Name": projectName,
       "Sub_Header": "test" + ":",
-      "multi_media":multiMediaLink
+      "multi_media": multiMediaLink
     }).then((value) {
       if (value.data["affectedRows"] == 0) {
         result = "FileDoesNotExist";
@@ -821,7 +845,8 @@ class ApiCalls {
     return result;
   }
 
-  static Future<String>  deleteProjectAcc({required projectId, projectName}) async {
+  static Future<String> deleteProjectAcc(
+      {required projectId,required projectName}) async {
     late String result;
     await DioHelper.deleteProjectAcc(query: {
       "project_ID": projectId,
@@ -837,6 +862,4 @@ class ApiCalls {
     });
     return result;
   }
-
-
 }

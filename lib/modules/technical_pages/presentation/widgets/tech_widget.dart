@@ -1,4 +1,5 @@
-import 'package:aman_system/modules/view_folders/presentation/pages/view_folder_screen.dart';
+import 'package:aman_system/modules/technical_pages/presentation/widgets/all_projects_widget_tech.dart';
+import 'package:aman_system/modules/technical_pages/presentation/widgets/files_projects_widget_tech.dart';
 import 'package:aman_system/shared/components/my_button.dart';
 import 'package:aman_system/shared/cubit/cubit.dart';
 import 'package:aman_system/shared/cubit/status.dart';
@@ -103,7 +104,7 @@ class _TechWidgetState extends State<TechWidget> {
                         onPress: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const ViewFolderScreen()),
+                            MaterialPageRoute(builder: (context) => const AllProjectTech()),
                           );
                         }
                     ),

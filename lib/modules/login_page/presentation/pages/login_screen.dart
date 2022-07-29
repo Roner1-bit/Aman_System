@@ -1,9 +1,6 @@
-import 'package:aman_system/models/Users.dart';
+import 'package:aman_system/modules/login_page/presentation/cubit/cubit_login.dart';
+import 'package:aman_system/modules/login_page/presentation/cubit/status_login.dart';
 import 'package:aman_system/shared/components/my_button.dart';
-import 'package:aman_system/shared/cubit/cubit.dart';
-import 'package:aman_system/shared/cubit/status.dart';
-import 'package:aman_system/shared/network/remote/api_calls.dart';
-import 'package:aman_system/shared/network/remote/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,13 +11,13 @@ class LoginScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (context){
-        return AppCubit();
+        return LoginCubit();
       },
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (BuildContext context,AppStates state){},
-        builder: (BuildContext context,AppStates state) {
+      child: BlocConsumer<LoginCubit,LoginStatus>(
+        listener: (BuildContext context,LoginStatus state){},
+        builder: (BuildContext context,LoginStatus state) {
 
-          AppCubit cubit = AppCubit.get(context);
+          LoginCubit cubit = LoginCubit.get(context);
           
           return Scaffold(
             body: SingleChildScrollView(
@@ -140,14 +137,7 @@ class LoginScreen extends StatelessWidget {
                         height: 40.0,
                         width: 350.0,
                         onPress: () {
-
-
-
-
-
-
-
-                          cubit.navFromEmail(context,);
+                      cubit.navFromEmail(context,);
                       }
                     ),
                   ],

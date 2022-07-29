@@ -1,18 +1,14 @@
-import 'package:aman_system/modules/add_folder_file_page/presentation/pages/folder_file_screen.dart';
-import 'package:aman_system/modules/folder_page/presentation/pages/folder_screen.dart';
+
+import 'package:aman_system/modules/add_folder_file_page/presentation/widgets/folder_file_widget_tech.dart';
+import 'package:aman_system/modules/technical_pages/presentation/widgets/all_projects_widget_tech.dart';
 import 'package:aman_system/shared/cubit/cubit.dart';
 import 'package:aman_system/shared/cubit/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FolderWidget extends StatefulWidget {
-  const FolderWidget({Key? key}) : super(key: key);
+class AllProjectsAndFilesTech extends StatelessWidget {
+  const AllProjectsAndFilesTech({Key? key}) : super(key: key);
 
-  @override
-  State<FolderWidget> createState() => _FolderWidgetState();
-}
-
-class _FolderWidgetState extends State<FolderWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,13 +23,12 @@ class _FolderWidgetState extends State<FolderWidget> {
           AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Folder Name'),
+              title: const Text('All Folders'),
               actions: [
                 IconButton(onPressed: (){
                   Navigator.push(
                     context,
-
-                    MaterialPageRoute(builder: (context) => const FolderFileScreen()),
+                    MaterialPageRoute(builder: (context) => const FolderFileWidgetTech()),
                   );
 
                 }, icon: const CircleAvatar(
@@ -61,13 +56,13 @@ class _FolderWidgetState extends State<FolderWidget> {
                 ),
                 Expanded(
                   child: ListView.separated(
-                      itemBuilder: (context,index) => buildUserItem(cubit.subFolders[index]),
-                     separatorBuilder: (context,index) => Container(
+                      itemBuilder: (context,index) => buildUserItem(cubit.subFolders[index],context),
+                      separatorBuilder: (context,index) => Container(
                         width: double.infinity,
-                      height: 1.0,
-                      color: Colors.grey[300],
-                   ),
-                     itemCount: cubit.subFolders.length
+                        height: 1.0,
+                        color: Colors.grey[300],
+                      ),
+                      itemCount: cubit.subFolders.length
                   ),
                 ),
 
@@ -79,7 +74,7 @@ class _FolderWidgetState extends State<FolderWidget> {
     );
   }
 
-  Widget buildUserItem(folderName user) => Padding(
+  Widget buildUserItem(folderName user,BuildContext context) => Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
@@ -104,7 +99,7 @@ class _FolderWidgetState extends State<FolderWidget> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const FolderScreen()),
+                  MaterialPageRoute(builder: (context) => const AllProjectTech()),
                 );
               },
               child: Text(

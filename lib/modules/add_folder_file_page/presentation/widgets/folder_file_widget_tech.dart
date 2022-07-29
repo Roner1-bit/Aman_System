@@ -1,20 +1,14 @@
-import 'package:aman_system/modules/add_folder_page/presentation/pages/add_folder_screen.dart';
-import 'package:aman_system/modules/folder_page/presentation/pages/folder_screen.dart';
-import 'package:aman_system/modules/view_folders/presentation/pages/view_folder_screen.dart';
+import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_folder_widget_tech.dart';
 import 'package:aman_system/shared/components/my_button.dart';
 import 'package:aman_system/shared/cubit/cubit.dart';
 import 'package:aman_system/shared/cubit/status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FolderFileWidget extends StatefulWidget {
-  const FolderFileWidget({Key? key}) : super(key: key);
+class FolderFileWidgetTech extends StatelessWidget {
+  const FolderFileWidgetTech({Key? key}) : super(key: key);
 
-  @override
-  State<FolderFileWidget> createState() => _FolderFileWidgetState();
-}
 
-class _FolderFileWidgetState extends State<FolderFileWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -27,6 +21,7 @@ class _FolderFileWidgetState extends State<FolderFileWidget> {
         },
         builder: (context,state) {
           return Scaffold(
+            appBar: AppBar(),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -88,7 +83,7 @@ class _FolderFileWidgetState extends State<FolderFileWidget> {
                                         onPress: () {
                                         Navigator.push(
                                             context,
-                                            MaterialPageRoute(builder: (context) => const FolderScreen()),
+                                            MaterialPageRoute(builder: (context) => const AddFolderWidgetTech()),
                                           );
                                         },
                                       ),
@@ -101,10 +96,10 @@ class _FolderFileWidgetState extends State<FolderFileWidget> {
                                         width: 80.0,
                                         borderRadius: 10,
                                         onPress: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => const FolderScreen()),
-                                          );
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(builder: (context) => const FolderScreen()),
+                                          // );
 
                                         },
                                       ),

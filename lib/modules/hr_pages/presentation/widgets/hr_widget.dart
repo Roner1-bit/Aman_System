@@ -1,5 +1,7 @@
+
+import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_folder_widget_hr.dart';
+import 'package:aman_system/modules/hr_pages/presentation/widgets/all_projects_widget_hr.dart';
 import 'package:aman_system/modules/technical_pages/presentation/pages/tech_screen.dart';
-import 'package:aman_system/modules/view_folders/presentation/pages/view_folder_screen.dart';
 import 'package:aman_system/shared/components/my_button.dart';
 import 'package:aman_system/shared/cubit/cubit.dart';
 import 'package:aman_system/shared/cubit/status.dart';
@@ -39,94 +41,118 @@ class _HRWidgetState extends State<HRWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context){
-        return AppCubit();
-      },
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (context,state){
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: (){
 
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddFolderWidgetHr()),
+            );
+
+          }, icon: const CircleAvatar(
+            radius: 15.0,
+            backgroundColor: Colors.red,
+            child: Icon(
+              Icons.add_circle_outlined,
+              size: 30.0,
+              color: Colors.white,
+            ),
+          )),
+        ],
+      ),
+      body: BlocProvider(
+        create: (context){
+          return AppCubit();
         },
-        builder: (context,state) {
-          return Scaffold(
+        child: BlocConsumer<AppCubit,AppStates>(
+          listener: (context,state){
 
-            body: WillPopScope(
-              onWillPop: _onWillPop,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60),
-                      child: SizedBox(
-                        height: 100,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child:  Image.asset('assests/images/logo.jpeg'),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 90,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Welcome as HR',
-                        style: TextStyle(
-                          fontSize: 20,
+          },
+          builder: (context,state) {
+            AppCubit cubit = AppCubit.get(context);
+            return Scaffold(
 
-                          color: Colors.red,
+              body: WillPopScope(
+                onWillPop: _onWillPop,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 60),
+                        child: SizedBox(
+                          height: 100,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child:  Image.asset('assests/images/logo.jpeg'),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'UserName',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
+                      const SizedBox(
+                        height: 90,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'Welcome as HR',
+                          style: TextStyle(
+                            fontSize: 20,
+
+                            color: Colors.red,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    MyButton(text: 'View Folders',
-                        backGroundColor: Colors.red,
-                        height: 40.0,
-                        width: 350.0,
-                        onPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const ViewFolderScreen()),
-                          );
-                        }
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    MyButton(text: 'View Tech',
-                        backGroundColor: Colors.red,
-                        height: 40.0,
-                        width: 350.0,
-                        onPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const TechScreen()),
-                          );
-                        }
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: const Text(
+                          'UserName',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      MyButton(text: 'View Folders',
+                          backGroundColor: Colors.red,
+                          height: 40.0,
+                          width: 350.0,
+                          onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AllProjectHr()),
+                            );
+                          }
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      MyButton(text: 'View Tech',
+                          backGroundColor: Colors.red,
+                          height: 40.0,
+                          width: 350.0,
+                          onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const TechScreen()),
+                            );
+                          }
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
