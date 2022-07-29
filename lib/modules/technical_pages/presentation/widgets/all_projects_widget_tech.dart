@@ -37,7 +37,7 @@ class AllProjectTech extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('All Folders'),
+              title: const Text('Technical Projects'),
             ),
             body: ConditionalBuilder(
               condition : pageChecker,
@@ -63,15 +63,9 @@ class AllProjectTech extends StatelessWidget {
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
-        CircleAvatar(
+        const CircleAvatar(
           radius: 25.0,
-          child: Text(
-            user.projectID,
-            style: const TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold
-            ),
-          ),
+          child: Icon(Icons.folder),
         ),
         const SizedBox(
           width: 20,

@@ -27,6 +27,7 @@ class AddFolderWidgetTech extends StatelessWidget {
         builder: (context,state) {
           TechCubit cubit = TechCubit.get(context);
           return Scaffold(
+            appBar: AppBar(),
             body: SingleChildScrollView(
               child: Column(
                 children: [

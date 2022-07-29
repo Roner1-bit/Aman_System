@@ -35,7 +35,7 @@ class AllProjectsAndFilesTech extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('All Folders'),
+              title:  Text(folderNames),
               actions: [
                 IconButton(onPressed: (){
                   Navigator.push(
@@ -93,15 +93,9 @@ class AllProjectsAndFilesTech extends StatelessWidget {
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
-        CircleAvatar(
+        const CircleAvatar(
           radius: 25.0,
-          child: Text(
-            folderId,
-            style: const TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold
-            ),
-          ),
+          child: Icon(Icons.folder),
         ),
         const SizedBox(
           width: 20,

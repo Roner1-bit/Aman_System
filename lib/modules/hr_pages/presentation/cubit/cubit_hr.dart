@@ -17,10 +17,6 @@ class HrCubit extends Cubit<HrStates>{
 
   var projectName= TextEditingController();
 
-  List<FolderData> folderData = [];
-  List<FolderData> subFolderData = [];
-  List<FolderData> subFilesData = [];
-
 
 
   Future<List<ProjectData>> showingProjectsHR() async {
@@ -44,8 +40,8 @@ class HrCubit extends Cubit<HrStates>{
     emit(AppAddSubHeaderHr());
   }
 
-  void addMultiMediaHr(int index) async { // lesa htt3dl
-    await ApiCalls.addMultiMediaHr(projectId: subFilesData[index].projectID, projectName: subFilesData[index].projectName, folderFullRoute: '${folderData[index].projectName}:${subFilesData[index].projectName}');
+  void addMultiMediaHr(String projectName,int projectId,String folderName) async {
+    await ApiCalls.addMultiMediaHr(projectId: projectId, projectName: projectName,folderFullRoute : folderName);
     emit(AppAddMultiMediaHr());
   }
 

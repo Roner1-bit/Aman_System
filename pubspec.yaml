@@ -43,6 +43,7 @@ dependencies:
   #http: ^0.13.4
   file_picker: ^4.6.1
   email_validator: ^2.0.1
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:

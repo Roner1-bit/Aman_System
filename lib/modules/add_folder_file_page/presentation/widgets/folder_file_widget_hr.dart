@@ -13,7 +13,6 @@ class FolderFileWidgetHr extends StatelessWidget {
   final String subFolder;
   const FolderFileWidgetHr({Key? key, required this.folderNames, required this.folderId, required this.subFolder}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -23,6 +22,7 @@ class FolderFileWidgetHr extends StatelessWidget {
       child: BlocConsumer<HrCubit,HrStates>(
         listener: (context,state){},
         builder: (context,state) {
+          HrCubit cubit = HrCubit.get(context);
           return Scaffold(
             appBar: AppBar(),
             body: SingleChildScrollView(
@@ -78,32 +78,34 @@ class FolderFileWidgetHr extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 75, right: 55),
                                   child: Row(
                                     children:  [
-                                      MyButton(text: 'Folder',
-                                        backGroundColor: Colors.red,
-                                        height: 60.0,
-                                        width: 80.0,
-                                        borderRadius: 10,
-                                        onPress: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) =>  AddSubFolderWidgetHr(folderId: folderId, folderNames: folderNames, subFolder: subFolder,)),
-                                          );
-                                        },
+                                      Expanded(
+                                        child: MyButton(text: 'Folder',
+                                          backGroundColor: Colors.red,
+                                          height: 60.0,
+                                          width: double.infinity,
+                                          borderRadius: 10,
+                                          onPress: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) =>  AddSubFolderWidgetHr(folderId: folderId, folderNames: folderNames, subFolder: subFolder,)),
+                                            );
+                                          },
+                                        ),
                                       ),
                                       const SizedBox(
                                         width: 30,
                                       ),
-                                      MyButton(text: 'File',
-                                        backGroundColor: Colors.red,
-                                        height: 60.0,
-                                        width: 80.0,
-                                        borderRadius: 10,
-                                        onPress: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(builder: (context) => const FolderScreen()),
-                                          // );
-                                        },
+                                      Expanded(
+                                        child: MyButton(text: 'File',
+                                          backGroundColor: Colors.red,
+                                          height: 60.0,
+                                          width: double.infinity,
+                                          borderRadius: 10,
+                                          onPress: () {
+                                            cubit.addMultiMediaHr(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
+
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),

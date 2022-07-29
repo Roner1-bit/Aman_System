@@ -26,6 +26,7 @@ class FolderFileWidgetTech extends StatelessWidget {
 
         },
         builder: (context,state) {
+          TechCubit cubit = TechCubit.get(context);
           return Scaffold(
             appBar: AppBar(),
             body: SingleChildScrollView(
@@ -102,10 +103,7 @@ class FolderFileWidgetTech extends StatelessWidget {
                                         width: 80.0,
                                         borderRadius: 10,
                                         onPress: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(builder: (context) => const FolderScreen()),
-                                          // );
+                                        cubit.addMultiMediaTech(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
 
                                         },
                                       ),

@@ -69,7 +69,7 @@ class ApiCalls {
   static Future<ListOfUser> getUsers() async {
     late ListOfUser listOfUser; //[] is for no users in database
     List<User> usersList =
-        []; //return of userList means success and these are the users data
+    []; //return of userList means success and these are the users data
     await DioHelper.getAllUser().then((value) {
       //["no connection"] for fail state for bad connection.
       if (value.data.length == 0) {
@@ -78,12 +78,7 @@ class ApiCalls {
         for (int i = 0; i < value.data.length; i++) {
           usersList.add(User.fromJson(value.data[i]));
         }
-        listOfUser = ListOfUser(users: [
-          User(
-              userName: "no connection",
-              password: "no connection",
-              dep: "no connection")
-        ]);
+        listOfUser = ListOfUser(users: usersList);
       }
 
       // ListOfUser x= await ApiCalls.getUsers();                                           //Use this in the same manner
@@ -94,7 +89,12 @@ class ApiCalls {
       //
       // }
     }).catchError((e) {
-      listOfUser = ListOfUser(users: []);
+      listOfUser = ListOfUser(users: [
+        User(
+            userName: "no connection",
+            password: "no connection",
+            dep: "no connection")
+      ]);
     });
     return listOfUser;
   }
@@ -216,8 +216,7 @@ class ApiCalls {
       //error for connection error state
       var formData = FormData.fromMap({
         "project_ID": projectId,
-        "Sub_Header": folderFullRoute +
-            ":", //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
+        "Sub_Header": folderFullRoute, //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),
         "project_Name": projectName,
@@ -457,7 +456,7 @@ class ApiCalls {
       //error for connection error state
       var formData = FormData.fromMap({
         "project_ID": projectId,
-        "Sub_Header": folderFullRoute + ":",
+        "Sub_Header": folderFullRoute,
         //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),
@@ -696,7 +695,7 @@ class ApiCalls {
     if (result != null) {
       var formData = FormData.fromMap({
         "project_ID": projectId,
-        "Sub_Header": folderFullRoute + ":",
+        "Sub_Header": folderFullRoute,
         //  When you want to add a certain sub-header inside a sub-header use this(sub-header=first_sub-header:Second sub-header)
         "multi_media": await MultipartFile.fromFile(result.files.single.path!,
             filename: result.names[0]),

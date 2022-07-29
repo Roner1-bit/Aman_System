@@ -1,7 +1,6 @@
-
-import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_folder_widget_hr.dart';
-import 'package:aman_system/modules/hr_pages/presentation/cubit/cubit_hr.dart';
-import 'package:aman_system/modules/hr_pages/presentation/cubit/states_hr.dart';
+import 'package:aman_system/modules/admin/cubit/cubit_admin.dart';
+import 'package:aman_system/modules/admin/cubit/status_admin.dart';
+import 'package:aman_system/modules/admin/widget/admin_view_users.dart';
 import 'package:aman_system/modules/hr_pages/presentation/widgets/all_projects_widget_hr.dart';
 import 'package:aman_system/modules/technical_pages/presentation/widgets/all_projects_widget_tech.dart';
 import 'package:aman_system/shared/components/my_button.dart';
@@ -9,15 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HRWidget extends StatefulWidget {
-  const HRWidget({Key? key}) : super(key: key);
+class AdminViewAllWidgets extends StatefulWidget {
+  const AdminViewAllWidgets({Key? key}) : super(key: key);
 
   @override
-  State<HRWidget> createState() => _HRWidgetState();
+  State<AdminViewAllWidgets> createState() => _AdminViewAllWidgetsState();
 }
 
-class _HRWidgetState extends State<HRWidget> {
-
+class _AdminViewAllWidgetsState extends State<AdminViewAllWidgets> {
   Future<bool> _onWillPop() async {
     return (await showDialog(
       context: context,
@@ -38,44 +36,21 @@ class _HRWidgetState extends State<HRWidget> {
     )) ?? false;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(onPressed: (){
-
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddFolderWidgetHr()),
-            );
-
-          }, icon: const CircleAvatar(
-            radius: 15.0,
-            backgroundColor: Colors.red,
-            child: Icon(
-              Icons.add_circle_outlined,
-              size: 30.0,
-              color: Colors.white,
-            ),
-          )),
-        ],
-      ),
+      appBar: AppBar(),
       body: BlocProvider(
         create: (context){
-          return HrCubit();
+          return AdminCubit();
         },
-        child: BlocConsumer<HrCubit,HrStates>(
+        child: BlocConsumer<AdminCubit,AdminStates>(
           listener: (context,state){
 
           },
-          builder: (context,state) {
-            HrCubit cubit = HrCubit.get(context);
-            return Scaffold(
-
-              body: WillPopScope(
+          builder: (context,state){
+            AdminCubit cubit = AdminCubit.get(context);
+            return WillPopScope(
                 onWillPop: _onWillPop,
                 child: SingleChildScrollView(
                   child: Column(
@@ -96,7 +71,7 @@ class _HRWidgetState extends State<HRWidget> {
                       Container(
                         alignment: Alignment.center,
                         child: const Text(
-                          'Welcome as HR',
+                          'Welcome as Admin',
                           style: TextStyle(
                             fontSize: 20,
 
@@ -121,7 +96,7 @@ class _HRWidgetState extends State<HRWidget> {
                       const SizedBox(
                         height: 30,
                       ),
-                      MyButton(text: 'View Folders',
+                      MyButton(text: 'View HR',
                           backGroundColor: Colors.red,
                           height: 40.0,
                           width: 350.0,
@@ -146,12 +121,39 @@ class _HRWidgetState extends State<HRWidget> {
                             );
                           }
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      MyButton(text: 'View Acc',
+                          backGroundColor: Colors.red,
+                          height: 40.0,
+                          width: 350.0,
+                          onPress: () {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) => const AllProjectTech()),
+                            // );
+                          }
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      MyButton(text: 'View Users',
+                          backGroundColor: Colors.red,
+                          height: 40.0,
+                          width: 350.0,
+                          onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AdminViewUsers()),
+                            );
+                          }
+                      ),
                     ],
                   ),
-                ),
-              ),
-            );
-          },
+                ));
+          }
+
         ),
       ),
     );

@@ -39,12 +39,11 @@ class AllProjectsAndFilesHr extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('All Folders'),
+              title:  Text(folderNames),
               actions: [
                 IconButton(onPressed: (){
                   Navigator.push(
                     context,
-
                     MaterialPageRoute(builder: (context) =>  FolderNoFileWidgetHr(folderId: folderId, folderNames: folderNames, subFolder: '',)),
                   );
 
@@ -100,13 +99,7 @@ class AllProjectsAndFilesHr extends StatelessWidget {
       children:  [
         CircleAvatar(
           radius: 25.0,
-          child: Text(
-            folderId,
-            style: const TextStyle(
-                fontSize: 25.0,
-                fontWeight: FontWeight.bold
-            ),
-          ),
+          child: Icon(Icons.folder),
         ),
         const SizedBox(
           width: 20,

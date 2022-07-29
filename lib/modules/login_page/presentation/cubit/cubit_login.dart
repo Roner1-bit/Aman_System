@@ -1,4 +1,5 @@
 import 'package:aman_system/models/Users.dart';
+import 'package:aman_system/modules/admin/pages/admin_screen.dart';
 import 'package:aman_system/modules/hr_pages/presentation/pages/hr_screen.dart';
 import 'package:aman_system/modules/login_page/presentation/cubit/status_login.dart';
 import 'package:aman_system/modules/technical_pages/presentation/pages/tech_screen.dart';
@@ -17,7 +18,7 @@ class LoginCubit extends Cubit<LoginStatus>{
 
   bool emailValidation(TextEditingController controller) {
     if(EmailValidator.validate(controller.text) == true && controller.text.startsWith("HR")
-        ||controller.text.startsWith("TECH") || controller.text.startsWith("STO")){
+        ||controller.text.startsWith("TECH") || controller.text.startsWith("STO") || controller.text.startsWith("ADMIN")){
       debugPrint('EMAIL');
       debugPrint('OK');
       return true;
@@ -86,7 +87,28 @@ class LoginCubit extends Cubit<LoginStatus>{
         }
 
 
-      }else{
+      }else if (email.text.startsWith("ADMIN")){
+
+        user = User(userName: email.text, password: pass.text, dep: "ADMIN");
+        // String verify = await ApiCalls.verifyUser(user: user);
+        String verify = 'success'; // will be changed
+        if(verify == 'success'){
+          emit(FromLoginToTec());
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AdminScreen()),
+          );
+        }
+        else {
+          (
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("User Not Found")))
+          );
+        }
+
+
+      }
+      else{
         emit(FromLoginToSto());
       }
 

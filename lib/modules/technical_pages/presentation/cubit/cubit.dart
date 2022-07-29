@@ -38,8 +38,8 @@ class TechCubit extends Cubit<TechStates>{
     await ApiCalls.addSubHeader(projectId: projectId, projectName: projectName, folderName: folderName);
     emit(AppAddSubHeaderTech());
   }
-  void addMultiMediaTech(int index) async { //lesa htt3dl
-    await ApiCalls.addMultiMedia(projectId: subFilesData[index].projectID, projectName: subFilesData[index].projectName, folderFullRoute: '${folderData[index].projectName}:${subFilesData[index].projectName}');
+  void addMultiMediaTech(String projectName,int projectId,String folderName) async {
+    await ApiCalls.addMultiMedia(projectId: projectId, projectName: projectName,folderFullRoute : folderName);
     emit(AppAddMultiMediaTech());
   }
   Future<List<String>> getSubFoldersTech(String projectName,String projectID) async{
