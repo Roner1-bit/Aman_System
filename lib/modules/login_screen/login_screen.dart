@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:aman_system/models/ListOfUsers.dart';
 import 'package:aman_system/models/Users.dart';
+import 'package:aman_system/models/projectData.dart';
 import 'package:aman_system/modules/login_screen/cubit/login_cubit.dart';
 import 'package:aman_system/modules/login_screen/cubit/login_states.dart';
 import 'package:aman_system/shared/components/components.dart';
@@ -33,8 +34,12 @@ class LoginScreen extends StatelessWidget {
         () async {
 
           //ApiCalls.addSubHeader();
-          var x= await ApiCalls.deleteProjectAcc(projectId: 1322, projectName: "fruit");
-          print(x);
+          List<ProjectData> x= await ApiCalls.getAccProj();
+          for(int i=0;i<x.length;i++){
+            print(x[i].projectID);
+            print(x[i].projectName);
+          }
+
 
       }
 
