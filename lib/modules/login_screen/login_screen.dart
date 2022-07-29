@@ -32,10 +32,10 @@ class LoginScreen extends StatelessWidget {
       return Scaffold(
         body: defaultButton(submitFunction:
         () async {
-
           //ApiCalls.addSubHeader();
-          var x= await ApiCalls.deleteMultiMediaHr(projectId: 100,projectName: "apple",fullRoute: "test",multiMediaLink: "http://192.168.1.11/EL_EMAN/server/multi_media/HR/100apple/test/s.png");
-          print(x);
+          var x= await ApiCalls.getSubHeader(projectID: 100, projectName: "apple", folderName: "test", fullRoute: "test");
+          print(x.subHeaders);
+          print(x.multiMediaPaths);
 
       }
 

@@ -559,7 +559,6 @@ class ApiCalls {
       }
       listSubHeadersProject = cleanList(listSubHeadersProject, true, true);
     }).catchError((e) {
-      print("error");
       listSubHeadersProject = ["error"];
     });
 
@@ -798,7 +797,6 @@ class ApiCalls {
       }
       listSubHeadersProject = cleanList(listSubHeadersProject, true, true);
     }).catchError((e) {
-      print("error");
       listSubHeadersProject = ["error"];
     });
 
