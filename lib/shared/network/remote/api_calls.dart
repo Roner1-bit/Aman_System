@@ -300,7 +300,7 @@ class ApiCalls {
   }
 
   static Future<List<String>> getProjectSubHeaders(
-      {required projectId, projectName}) async {
+      {required projectId,required projectName}) async {
     List<String> listSubHeadersProject =
         []; //listSubHeader array will contain all folders
     await DioHelper.getProjectSubHeader(query: {
@@ -329,7 +329,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteSubHeaders(
-      {required projectId, projectName, fullRoute}) async {
+      {required projectId,required projectName,required fullRoute}) async {
     late String result;
     await DioHelper.deleteSubHeader(query: {
       //FileDoesNotExist is meant when no folder exists
@@ -349,7 +349,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteMultiMedia(
-      {required projectId, projectName, fullRoute, multiMediaLink}) async {
+      {required projectId,required projectName,required fullRoute,required multiMediaLink}) async {
     late String result;
     await DioHelper.deleteMultiMedia(query: {
       //FileDoesNotExist is meant when no folder exists
@@ -369,7 +369,7 @@ class ApiCalls {
     return result;
   }
 
-  static Future<String> deleteProject({required projectId, projectName}) async {
+  static Future<String> deleteProject({required projectId,required projectName}) async {
     late String result;
     await DioHelper.deleteProject(query: {
       "project_ID": projectId,
@@ -538,7 +538,7 @@ class ApiCalls {
   }
 
   static Future<List<String>> getProjectSubHeadersHr(
-      {required projectId, projectName}) async {
+      {required projectId,required projectName}) async {
     List<String> listSubHeadersProject = [];
     await DioHelper.getProjectSubHeaderHr(query: {
       "project_ID": projectId,
@@ -567,7 +567,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteSubHeadersHr(
-      {required projectId, projectName, fullRoute}) async {
+      {required projectId,required projectName,required fullRoute}) async {
     late String result;
     await DioHelper.deleteSubHeaderHr(query: {
       "project_ID": projectId,
@@ -587,7 +587,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteMultiMediaHr(
-      {required projectId, projectName, fullRoute, multiMediaLink}) async {
+      {required projectId,required projectName,required fullRoute,required multiMediaLink}) async {
     late String result;
     await DioHelper.deleteMultiMediaHr(query: {
       "project_ID": projectId,
@@ -607,7 +607,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteProjectHr(
-      {required projectId, projectName}) async {
+      {required projectId,required projectName}) async {
     late String result;
     await DioHelper.deleteProjectHr(query: {
       "project_ID": projectId,
@@ -777,7 +777,7 @@ class ApiCalls {
   }
 
   static Future<List<String>> getProjectSubHeadersAcc(
-      {required projectId, projectName}) async {
+      {required projectId, required projectName}) async {
     List<String> listSubHeadersProject = [];
     await DioHelper.getProjectSubHeaderAcc(query: {
       "project_ID": projectId,
@@ -806,7 +806,7 @@ class ApiCalls {
   }
 
   static dynamic deleteSubHeadersAcc(
-      {required projectId, projectName, fullRoute}) async {
+      {required projectId, required projectName,required fullRoute}) async {
     late String result;
     await DioHelper.deleteSubHeaderAcc(query: {
       "project_ID": projectId,
@@ -826,7 +826,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteMultiMediaAcc(
-      {required projectId, projectName, fullRoute, multiMediaLink}) async {
+      {required projectId,required projectName,required fullRoute,required multiMediaLink}) async {
     late String result;
     await DioHelper.deleteMultiMediaAcc(query: {
       "project_ID": projectId,
@@ -846,7 +846,7 @@ class ApiCalls {
   }
 
   static Future<String> deleteProjectAcc(
-      {required projectId, projectName}) async {
+      {required projectId,required projectName}) async {
     late String result;
     await DioHelper.deleteProjectAcc(query: {
       "project_ID": projectId,
