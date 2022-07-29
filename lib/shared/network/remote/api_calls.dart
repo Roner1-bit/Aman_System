@@ -78,12 +78,7 @@ class ApiCalls {
         for (int i = 0; i < value.data.length; i++) {
           usersList.add(User.fromJson(value.data[i]));
         }
-        listOfUser = ListOfUser(users: [
-          User(
-              userName: "no connection",
-              password: "no connection",
-              dep: "no connection")
-        ]);
+        listOfUser = ListOfUser(users: usersList);
       }
 
       // ListOfUser x= await ApiCalls.getUsers();                                           //Use this in the same manner
@@ -94,7 +89,12 @@ class ApiCalls {
       //
       // }
     }).catchError((e) {
-      listOfUser = ListOfUser(users: []);
+      listOfUser = ListOfUser(users: [
+        User(
+            userName: "no connection",
+            password: "no connection",
+            dep: "no connection")
+      ]);
     });
     return listOfUser;
   }
