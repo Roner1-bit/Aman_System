@@ -13,26 +13,7 @@ class TechScreen extends StatelessWidget  {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(onPressed: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddFolderWidgetTech()),
-            );
-
-          }, icon: const CircleAvatar(
-            radius: 15.0,
-            backgroundColor: Colors.red,
-            child: Icon(
-              Icons.add_circle_outlined,
-              size: 30.0,
-              color: Colors.white,
-            ),
-          )),
-        ],
-      ),
+    return  Scaffold(
       body:  TechWidget(),
 
     );

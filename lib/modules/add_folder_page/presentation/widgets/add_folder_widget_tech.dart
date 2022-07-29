@@ -3,6 +3,8 @@
 
 import 'package:aman_system/modules/hr_pages/presentation/cubit/cubit_hr.dart';
 import 'package:aman_system/modules/hr_pages/presentation/cubit/states_hr.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/cubit.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/status.dart';
 import 'package:aman_system/shared/components/my_button.dart';
 
 import 'package:flutter/material.dart';
@@ -16,14 +18,14 @@ class AddFolderWidgetTech extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return HrCubit();
+        return TechCubit();
       },
-      child: BlocConsumer<HrCubit,HrStates>(
+      child: BlocConsumer<TechCubit,TechStates>(
         listener: (context,state){
 
         },
         builder: (context,state) {
-          HrCubit cubit = HrCubit.get(context);
+          TechCubit cubit = TechCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               child: Column(
@@ -100,7 +102,7 @@ class AddFolderWidgetTech extends StatelessWidget {
                                       width: 80.0,
                                       borderRadius: 10,
                                       onPress: () {
-                                      cubit.createProjectHR();
+                                      cubit.createProjectTech();
                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                           content: Text("Project Added Successfully")));
                                       },

@@ -1,30 +1,27 @@
-import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_folder_widget_tech.dart';
-import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_subfolder_widget_tech.dart';
-import 'package:aman_system/modules/technical_pages/presentation/cubit/cubit.dart';
-import 'package:aman_system/modules/technical_pages/presentation/cubit/status.dart';
+import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_folder_widget_hr.dart';
+import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_subfolder_widget_hr.dart';
+import 'package:aman_system/modules/hr_pages/presentation/cubit/cubit_hr.dart';
+import 'package:aman_system/modules/hr_pages/presentation/cubit/states_hr.dart';
 import 'package:aman_system/shared/components/my_button.dart';
-import 'package:aman_system/shared/cubit/cubit.dart';
-import 'package:aman_system/shared/cubit/status.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FolderFileWidgetTech extends StatelessWidget {
+class FolderNoFileWidgetHr extends StatelessWidget {
   final String folderNames;
   final String folderId;
   final String subFolder;
-  const FolderFileWidgetTech({Key? key, required this.folderNames, required this.folderId, required this.subFolder}) : super(key: key);
+  const FolderNoFileWidgetHr({Key? key, required this.folderNames, required this.folderId, required this.subFolder}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return TechCubit();
+        return HrCubit();
       },
-      child: BlocConsumer<TechCubit,TechStates>(
-        listener: (context,state){
-
-        },
+      child: BlocConsumer<HrCubit,HrStates>(
+        listener: (context,state){},
         builder: (context,state) {
           return Scaffold(
             appBar: AppBar(),
@@ -79,37 +76,17 @@ class FolderFileWidgetTech extends StatelessWidget {
                                 width: double.infinity,
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 75, right: 55),
-                                  child: Row(
-                                    children:  [
-                                      MyButton(text: 'Folder',
-                                        backGroundColor: Colors.red,
-                                        height: 60.0,
-                                        width: 80.0,
-                                        borderRadius: 10,
-                                        onPress: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) =>  AddSubFolderWidgetTech(folderId: folderId, folderNames: folderNames, subFolder: subFolder,)),
-                                          );
-                                        },
-                                      ),
-                                      const SizedBox(
-                                        width: 30,
-                                      ),
-                                      MyButton(text: 'File',
-                                        backGroundColor: Colors.red,
-                                        height: 60.0,
-                                        width: 80.0,
-                                        borderRadius: 10,
-                                        onPress: () {
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(builder: (context) => const FolderScreen()),
-                                          // );
-
-                                        },
-                                      ),
-                                    ],
+                                  child: MyButton(text: 'Folder',
+                                    backGroundColor: Colors.red,
+                                    height: 60.0,
+                                    width: 80.0,
+                                    borderRadius: 10,
+                                    onPress: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) =>  AddSubFolderWidgetHr(folderId: folderId, folderNames: folderNames, subFolder: subFolder,)),
+                                      );
+                                    },
                                   ),
                                 ),
                               )

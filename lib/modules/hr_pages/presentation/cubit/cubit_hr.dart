@@ -16,35 +16,12 @@ class HrCubit extends Cubit<HrStates>{
   late int savedNumberID;
 
   var projectName= TextEditingController();
-  int randomNumber = Random().nextInt(100);
+
   List<FolderData> folderData = [];
   List<FolderData> subFolderData = [];
   List<FolderData> subFilesData = [];
 
-  List<folderName> folders = [
-    folderName(id: 1, name: 'Folder 1'),
-    folderName(id: 2, name: 'Folder 2'),
-    folderName(id: 3, name: 'Folder 3'),
-    folderName(id: 4, name: 'Folder 4'),
-    folderName(id: 6, name: 'Folder 5'),
-    folderName(id: 7, name: 'Folder 6'),
-    folderName(id: 8, name: 'Folder 7'),
-    folderName(id: 9, name: 'Folder 9'),
-    folderName(id: 10, name: 'Folder 10'),
-    folderName(id: 11, name: 'Folder 11'),
-  ];
-  List<folderName> subFolders = [
-    folderName(id: 1, name: 'Folder 1'),
-    folderName(id: 2, name: 'Folder 2'),
-    folderName(id: 3, name: 'Folder 3'),
-    folderName(id: 4, name: 'Folder 4'),
-  ];
-  List<folderName> subFiles = [
-    folderName(id: 1, name: 'Folder 1'),
-    folderName(id: 2, name: 'Folder 2'),
-    folderName(id: 3, name: 'Folder 3'),
-    folderName(id: 4, name: 'Folder 4'),
-  ];
+
 
   Future<List<ProjectData>> showingProjectsHR() async {
     late List<ProjectData> hrProj ;
@@ -67,7 +44,7 @@ class HrCubit extends Cubit<HrStates>{
     emit(AppAddSubHeaderHr());
   }
 
-  void addMultiMediaHr(int index) async {
+  void addMultiMediaHr(int index) async { // lesa htt3dl
     await ApiCalls.addMultiMediaHr(projectId: subFilesData[index].projectID, projectName: subFilesData[index].projectName, folderFullRoute: '${folderData[index].projectName}:${subFilesData[index].projectName}');
     emit(AppAddMultiMediaHr());
   }

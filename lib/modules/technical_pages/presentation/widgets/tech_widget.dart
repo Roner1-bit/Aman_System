@@ -1,3 +1,6 @@
+import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_folder_widget_tech.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/cubit.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/status.dart';
 import 'package:aman_system/modules/technical_pages/presentation/widgets/all_projects_widget_tech.dart';
 import 'package:aman_system/modules/technical_pages/presentation/widgets/files_projects_widget_tech.dart';
 import 'package:aman_system/shared/components/my_button.dart';
@@ -10,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TechWidget extends StatefulWidget  {
 
-  TechWidget({Key? key}) : super(key: key);
+  const TechWidget({Key? key}) : super(key: key);
 
   @override
   State<TechWidget> createState() => _TechWidgetState();
@@ -43,14 +46,33 @@ class _TechWidgetState extends State<TechWidget> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return AppCubit();
+        return TechCubit();
       },
-      child: BlocConsumer<AppCubit,AppStates>(
+      child: BlocConsumer<TechCubit,TechStates>(
         listener: (context,state){
 
         },
-        builder: (BuildContext context,AppStates state) {
+        builder: (BuildContext context,TechStates state) {
           return Scaffold(
+            appBar: AppBar(
+              actions: [
+                IconButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AddFolderWidgetTech()),
+                  );
+
+                }, icon: const CircleAvatar(
+                  radius: 15.0,
+                  backgroundColor: Colors.red,
+                  child: Icon(
+                    Icons.add_circle_outlined,
+                    size: 30.0,
+                    color: Colors.white,
+                  ),
+                )),
+              ],
+            ),
             body: WillPopScope(
               onWillPop: _onWillPop,
               child: SingleChildScrollView(

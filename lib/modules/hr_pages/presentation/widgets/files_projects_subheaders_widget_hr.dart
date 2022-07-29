@@ -25,7 +25,7 @@ class AllProjectsAndFilesSubHeaderHr extends StatelessWidget {
       create: (context){
         return HrCubit()..getFilesHr(int.parse(folderId), folderNames, folderName2, subFolder).then((value) {
           project = ApiCalls.cleanList(value.subHeaders, true, true);
-          multiMedia = ApiCalls.cleanList(value.multiMediaPaths, true, false);
+          project = ApiCalls.cleanList(value.multiMediaPaths, true, false);
         });
       },
       child: BlocConsumer<HrCubit,HrStates>(

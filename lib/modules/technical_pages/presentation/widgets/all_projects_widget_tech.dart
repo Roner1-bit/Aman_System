@@ -1,5 +1,8 @@
 
+import 'package:aman_system/models/projectData.dart';
 import 'package:aman_system/modules/hr_pages/presentation/widgets/files_projects_widget_hr.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/cubit.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/status.dart';
 import 'package:aman_system/modules/technical_pages/presentation/widgets/files_projects_widget_tech.dart';
 import 'package:aman_system/shared/cubit/cubit.dart';
 import 'package:aman_system/shared/cubit/status.dart';
@@ -8,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-List project = [];
+List<ProjectData> project = [];
 class AllProjectTech extends StatelessWidget {
   const AllProjectTech({Key? key}) : super(key: key);
 
@@ -16,22 +19,16 @@ class AllProjectTech extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return AppCubit();
+        return TechCubit()..showingProjectsTech().then((value) => project = value);
       },
-      child: BlocConsumer<AppCubit,AppStates>(
+      child: BlocConsumer<TechCubit,TechStates>(
         listener: (context,state)  {
 
         },
         builder: (context,state)   {
 
-          AppCubit cubit = AppCubit.get(context);
-          print('check');
-          cubit.showingProjectsHR().then((value) => project = value);
-          print(project.length);
+          TechCubit cubit = TechCubit.get(context);
           bool pageChecker = true;
-
-
-
 
           if(project.length == 1 && project[0] == 'error'){
             pageChecker = false;
@@ -62,14 +59,14 @@ class AllProjectTech extends StatelessWidget {
     );
   }
 
-  Widget buildUserItem(String user,BuildContext context) => Padding(
+  Widget buildUserItem(ProjectData user,BuildContext context) => Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
         CircleAvatar(
           radius: 25.0,
           child: Text(
-            '${user}',
+            user.projectID,
             style: const TextStyle(
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold
@@ -87,11 +84,11 @@ class AllProjectTech extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AllProjectsAndFilesTech()),
+                  MaterialPageRoute(builder: (context) =>  AllProjectsAndFilesTech(folderNames : user.projectName, folderId: user.projectID)),
                 );
               },
               child: Text(
-                  user
+                  user.projectName
               ),
             ),
           ],

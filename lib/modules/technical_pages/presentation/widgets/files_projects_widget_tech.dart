@@ -1,26 +1,38 @@
 
 import 'package:aman_system/modules/add_folder_file_page/presentation/widgets/folder_file_widget_tech.dart';
+import 'package:aman_system/modules/add_folder_page/presentation/widgets/folder_file_widget_tech_no_file_added.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/cubit.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/status.dart';
 import 'package:aman_system/modules/technical_pages/presentation/widgets/all_projects_widget_tech.dart';
+import 'package:aman_system/modules/technical_pages/presentation/widgets/files_projects_subheaders_widget_tech.dart';
 import 'package:aman_system/shared/cubit/cubit.dart';
 import 'package:aman_system/shared/cubit/status.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+List<String> project = [];
 class AllProjectsAndFilesTech extends StatelessWidget {
-  const AllProjectsAndFilesTech({Key? key}) : super(key: key);
+  final String folderNames;
+  final String folderId;
+  const AllProjectsAndFilesTech({Key? key, required this.folderNames, required this.folderId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return AppCubit();
+        return TechCubit()..getSubFoldersTech(folderNames,folderId).then((value) => project = value);
       },
-      child: BlocConsumer<AppCubit,AppStates>(
+      child: BlocConsumer<TechCubit,TechStates>(
         listener: (context,state){
 
         },
         builder: (context,state) {
-          AppCubit cubit = AppCubit.get(context);
+          TechCubit cubit = TechCubit.get(context);
+          bool pageChecker = true;
+          if(project.length == 1 && project[0] == 'error'){
+            pageChecker = false;
+          }
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('All Folders'),
@@ -28,7 +40,7 @@ class AllProjectsAndFilesTech extends StatelessWidget {
                 IconButton(onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const FolderFileWidgetTech()),
+                    MaterialPageRoute(builder: (context) => FolderNoFileWidgetTech(folderId: folderId, folderNames: folderNames, subFolder: '',)),
                   );
 
                 }, icon: const CircleAvatar(
@@ -54,16 +66,19 @@ class AllProjectsAndFilesTech extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ListView.separated(
-                      itemBuilder: (context,index) => buildUserItem(cubit.subFolders[index],context),
-                      separatorBuilder: (context,index) => Container(
-                        width: double.infinity,
-                        height: 1.0,
-                        color: Colors.grey[300],
-                      ),
-                      itemCount: cubit.subFolders.length
-                  ),
+                ConditionalBuilder(
+                  condition : pageChecker,
+                  builder: (context) => Expanded(
+                    child: ListView.separated(
+                        itemBuilder: (context,index) => buildUserItem(project[index],context),
+                        separatorBuilder: (context,index) => Container(
+                          width: double.infinity,
+                          height: 1.0,
+                          color: Colors.grey[300],
+                        ),
+                        itemCount: project.length
+                    ),
+                  ), fallback: null,
                 ),
 
               ],
@@ -74,14 +89,14 @@ class AllProjectsAndFilesTech extends StatelessWidget {
     );
   }
 
-  Widget buildUserItem(folderName user,BuildContext context) => Padding(
+  Widget buildUserItem(String user,BuildContext context) => Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
         CircleAvatar(
           radius: 25.0,
           child: Text(
-            '${user.id}',
+            folderId,
             style: const TextStyle(
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold
@@ -99,11 +114,11 @@ class AllProjectsAndFilesTech extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AllProjectTech()),
+                  MaterialPageRoute(builder: (context) =>  AllProjectsAndFilesSubHeaderTech(folderNames: folderNames, folderId: folderId, subFolder: user, folderName2: user,)),
                 );
               },
               child: Text(
-                  user.name
+                  user
               ),
             ),
           ],

@@ -1,5 +1,7 @@
 
 import 'package:aman_system/modules/add_folder_page/presentation/widgets/add_folder_widget_hr.dart';
+import 'package:aman_system/modules/hr_pages/presentation/cubit/cubit_hr.dart';
+import 'package:aman_system/modules/hr_pages/presentation/cubit/states_hr.dart';
 import 'package:aman_system/modules/hr_pages/presentation/widgets/all_projects_widget_hr.dart';
 import 'package:aman_system/modules/technical_pages/presentation/pages/tech_screen.dart';
 import 'package:aman_system/shared/components/my_button.dart';
@@ -65,14 +67,14 @@ class _HRWidgetState extends State<HRWidget> {
       ),
       body: BlocProvider(
         create: (context){
-          return AppCubit();
+          return HrCubit();
         },
-        child: BlocConsumer<AppCubit,AppStates>(
+        child: BlocConsumer<HrCubit,HrStates>(
           listener: (context,state){
 
           },
           builder: (context,state) {
-            AppCubit cubit = AppCubit.get(context);
+            HrCubit cubit = HrCubit.get(context);
             return Scaffold(
 
               body: WillPopScope(

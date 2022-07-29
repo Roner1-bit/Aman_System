@@ -1,10 +1,12 @@
 
-import 'package:aman_system/models/projectData.dart';
 import 'package:aman_system/modules/add_folder_file_page/presentation/widgets/folder_file_widget_hr.dart';
-import 'package:aman_system/modules/add_folder_page/presentation/widgets/folder_file_widget_hr_no_file_added.dart';
+import 'package:aman_system/modules/add_folder_file_page/presentation/widgets/folder_file_widget_tech.dart';
 import 'package:aman_system/modules/hr_pages/presentation/cubit/cubit_hr.dart';
 import 'package:aman_system/modules/hr_pages/presentation/cubit/states_hr.dart';
-import 'package:aman_system/modules/hr_pages/presentation/widgets/files_projects_subheaders_widget_hr.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/cubit.dart';
+import 'package:aman_system/modules/technical_pages/presentation/cubit/status.dart';
+import 'package:aman_system/shared/cubit/cubit.dart';
+import 'package:aman_system/shared/network/remote/api_calls.dart';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
@@ -12,24 +14,32 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 List<String> project = [];
-class AllProjectsAndFilesHr extends StatelessWidget {
+List<String> multiMedia = [];
+class AllProjectsAndFilesSubHeaderTech extends StatelessWidget {
   final String folderNames;
   final String folderId;
+  final String subFolder;
+  final String folderName2;
 
-  const AllProjectsAndFilesHr({Key? key, required this.folderNames, required this.folderId}) : super(key: key);
+  const AllProjectsAndFilesSubHeaderTech({Key? key, required this.folderNames, required this.folderId, required this.subFolder, required this.folderName2}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context){
-        return HrCubit()..getSubFoldersHr(folderNames,folderId).then((value) => project = value);
+        return TechCubit()..getFilesTech(int.parse(folderId), folderNames, folderName2, subFolder).then((value) {
+
+          project = ApiCalls.cleanList(value.subHeaders, true, true);
+          multiMedia = ApiCalls.cleanList(value.multiMediaPaths, true, false);
+        });
       },
-      child: BlocConsumer<HrCubit,HrStates>(
+      child: BlocConsumer<TechCubit,TechStates>(
         listener: (context,state){
 
         },
         builder: (context,state) {
-          HrCubit cubit = HrCubit.get(context);
+          TechCubit cubit = TechCubit.get(context);
+
 
 
           bool pageChecker = true;
@@ -45,7 +55,7 @@ class AllProjectsAndFilesHr extends StatelessWidget {
                   Navigator.push(
                     context,
 
-                    MaterialPageRoute(builder: (context) =>  FolderNoFileWidgetHr(folderId: folderId, folderNames: folderNames, subFolder: '',)),
+                    MaterialPageRoute(builder: (context) =>  FolderFileWidgetTech(folderId: folderId, folderNames: folderNames, subFolder: subFolder+":",)),
                   );
 
                 }, icon: const CircleAvatar(
@@ -119,7 +129,7 @@ class AllProjectsAndFilesHr extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AllProjectsAndFilesSubHeaderHr(folderNames: folderNames, folderId: folderId, subFolder: user, folderName2: user,)),
+                  MaterialPageRoute(builder: (context) => AllProjectsAndFilesSubHeaderTech(folderNames: folderNames, folderId: folderId, subFolder: subFolder+":"+user, folderName2: user,)),
                 );
               },
               child: Text(
