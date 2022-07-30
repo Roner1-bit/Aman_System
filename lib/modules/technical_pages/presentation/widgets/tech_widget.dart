@@ -102,20 +102,20 @@ class _TechWidgetState extends State<TechWidget> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child:  const Text(
-                        'UserName',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   child:  const Text(
+                    //     'UserName',
+                    //     style: TextStyle(
+                    //       fontSize: 20,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.red,
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
                       height: 30,
                     ),

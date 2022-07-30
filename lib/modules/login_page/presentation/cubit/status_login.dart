@@ -12,4 +12,4 @@ class FromLoginToHr extends LoginStatus {}
 
 class FromLoginToTec extends LoginStatus {}
 
-class FromLoginToSto extends LoginStatus {}
+class FromLoginToAcc extends LoginStatus {}

@@ -1,3 +1,4 @@
+import 'package:aman_system/modules/acc_pages/presentation/pages/acc_screen.dart';
 import 'package:aman_system/modules/admin/cubit/cubit_admin.dart';
 import 'package:aman_system/modules/admin/cubit/status_admin.dart';
 import 'package:aman_system/modules/admin/widget/admin_view_users.dart';
@@ -129,10 +130,10 @@ class _AdminViewAllWidgetsState extends State<AdminViewAllWidgets> {
                           height: 40.0,
                           width: 350.0,
                           onPress: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => const AllProjectTech()),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AccScreen()),
+                            );
                           }
                       ),
                       const SizedBox(
