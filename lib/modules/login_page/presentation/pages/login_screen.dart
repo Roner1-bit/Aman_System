@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Image.asset('assests/images/background.jpg'),
+                    Image.asset('assests/images/background.jpg',fit: BoxFit.fill),
                     const SizedBox(
                       height: 90,
                     ),
@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.topLeft,
                         child: const Text(
-                          'Welcome to Aman System !',
+                          'Welcome to Eman System !',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.red,

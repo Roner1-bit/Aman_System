@@ -106,9 +106,17 @@ class AddSubFolderWidgetTech extends StatelessWidget {
                                       width: 80.0,
                                       borderRadius: 10,
                                       onPress: () {
-                                      cubit.addSubHeaderTech(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
-                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                          content: Text("Project Added Successfully")));
+
+                                            if(cubit.projectName.text.isEmpty){
+                                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                            content: Text("Fill The Form")));
+                                            }else{
+                                              cubit.addSubHeaderTech(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
+                                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                                  content: Text("Project Added Successfully")));
+                                            }
+
+
                                       },
                                     ),
                                   ),

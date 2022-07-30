@@ -99,9 +99,17 @@ class AddFolderWidgetHr extends StatelessWidget {
                                       width: 80.0,
                                       borderRadius: 10,
                                       onPress: () {
-                                      cubit.createProjectHR();
-                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                          content: Text("Project Added Successfully")));
+
+                                      if(cubit.projectName.text.isEmpty){
+                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                            content: Text("Fill The Form")));
+                                      }else{
+                                        cubit.createProjectHR();
+                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                            content: Text("Project Added Successfully")));
+                                      }
+
+
                                       },
                                     ),
                                   ),

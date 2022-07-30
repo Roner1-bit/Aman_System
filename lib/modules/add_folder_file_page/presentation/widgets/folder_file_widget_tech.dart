@@ -82,30 +82,34 @@ class FolderFileWidgetTech extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 75, right: 55),
                                   child: Row(
                                     children:  [
-                                      MyButton(text: 'Folder',
-                                        backGroundColor: Colors.red,
-                                        height: 60.0,
-                                        width: 80.0,
-                                        borderRadius: 10,
-                                        onPress: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) =>  AddSubFolderWidgetTech(folderId: folderId, folderNames: folderNames, subFolder: subFolder,)),
-                                          );
-                                        },
+                                      Expanded(
+                                        child: MyButton(text: 'Folder',
+                                          backGroundColor: Colors.red,
+                                          height: 60.0,
+                                          width: 80.0,
+                                          borderRadius: 10,
+                                          onPress: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) =>  AddSubFolderWidgetTech(folderId: folderId, folderNames: folderNames, subFolder: subFolder,)),
+                                            );
+                                          },
+                                        ),
                                       ),
                                       const SizedBox(
                                         width: 30,
                                       ),
-                                      MyButton(text: 'File',
-                                        backGroundColor: Colors.red,
-                                        height: 60.0,
-                                        width: 80.0,
-                                        borderRadius: 10,
-                                        onPress: () {
-                                        cubit.addMultiMediaTech(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
+                                      Expanded(
+                                        child: MyButton(text: 'File',
+                                          backGroundColor: Colors.red,
+                                          height: 60.0,
+                                          width: 80.0,
+                                          borderRadius: 10,
+                                          onPress: () {
+                                          cubit.addMultiMediaTech(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
 
-                                        },
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),

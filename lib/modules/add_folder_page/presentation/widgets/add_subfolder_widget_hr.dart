@@ -104,9 +104,18 @@ class AddSubFolderWidgetHr extends StatelessWidget {
                                       width: 80.0,
                                       borderRadius: 10,
                                       onPress: () {
-                                      cubit.addSubHeaderHr(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
+
+                                      if(cubit.projectName.text.isEmpty){
                                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                          content: Text("Project Added Successfully")));
+                                      content: Text("Fill The Form")));
+                                      }else{
+                                        cubit.addSubHeaderHr(folderNames,int.parse(folderId),subFolder+cubit.projectName.text);
+                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                            content: Text("Project Added Successfully")));
+                                      }
+
+
+
                                       },
                                     ),
                                   ),
