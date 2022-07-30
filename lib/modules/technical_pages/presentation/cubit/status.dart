@@ -15,3 +15,9 @@ class AppAddMultiMediaTech extends TechStates {}
 class AppGetFoldersTech extends TechStates {}
 
 class AppGetFilesTech extends TechStates {}
+
+class AppDeleteProjectTech extends TechStates {}
+
+class AppDeleteSubHeader extends TechStates {}
+
+class AppDeleteMutliMediaTech extends TechStates {}

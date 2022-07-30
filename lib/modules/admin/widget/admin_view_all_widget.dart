@@ -103,7 +103,7 @@ class _AdminViewAllWidgetsState extends State<AdminViewAllWidgets> {
                           onPress: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AllProjectHr()),
+                              MaterialPageRoute(builder: (context) => const AllProjectHr(typeDep: 'ADMIN',)),
                             );
                           }
                       ),
@@ -117,7 +117,7 @@ class _AdminViewAllWidgetsState extends State<AdminViewAllWidgets> {
                           onPress: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AllProjectTech()),
+                              MaterialPageRoute(builder: (context) => const AllProjectTech(typeDep: 'ADMIN',)),
                             );
                           }
                       ),

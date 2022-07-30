@@ -126,7 +126,7 @@ class _TechWidgetState extends State<TechWidget> {
                         onPress: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const AllProjectTech()),
+                            MaterialPageRoute(builder: (context) => const AllProjectTech(typeDep: 'TECH',)),
                           );
                         }
                     ),

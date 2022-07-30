@@ -128,7 +128,7 @@ class _HRWidgetState extends State<HRWidget> {
                           onPress: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AllProjectHr()),
+                              MaterialPageRoute(builder: (context) => const AllProjectHr(typeDep: 'HR',)),
                             );
                           }
                       ),
@@ -142,7 +142,7 @@ class _HRWidgetState extends State<HRWidget> {
                           onPress: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AllProjectTech()),
+                              MaterialPageRoute(builder: (context) => const AllProjectTech(typeDep: "HR",)),
                             );
                           }
                       ),

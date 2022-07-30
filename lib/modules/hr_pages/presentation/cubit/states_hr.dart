@@ -15,3 +15,9 @@ class AppAddMultiMediaHr extends HrStates {}
 class AppGetFoldersHr extends HrStates {}
 
 class AppGetFilesHr extends HrStates {}
+
+class AppDeleteProjectHr extends HrStates {}
+
+class AppDeleteSubHeaderHr extends HrStates {}
+
+class AppDeleteMutliMediaHr extends HrStates {}

@@ -20,6 +20,62 @@ class AllProjectsAndFilesSubHeaderHr extends StatelessWidget {
 
   const AllProjectsAndFilesSubHeaderHr({Key? key, required this.folderNames, required this.folderId, required this.subFolder, required this.folderName2}) : super(key: key);
 
+  Future<bool> _onWillPop(BuildContext context,HrCubit cubit,String user,int id,String file) async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to exit an App'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () {
+
+              cubit.deleteSubHeaderHr(id, user, file);
+              Navigator.of(context).pop(false);
+
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Deleted Successfully")));
+
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    )) ?? false;
+  }
+
+
+  Future<bool> _onWillPopFiles(BuildContext context,HrCubit cubit,String user,int id,String file,String multiMediaLink) async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to exit an App'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () {
+
+              cubit.deleteMultiMediaHr(id, user, file, multiMediaLink);
+              Navigator.of(context).pop(false);
+
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Deleted Successfully")));
+
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    )) ?? false;
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -82,7 +138,7 @@ class AllProjectsAndFilesSubHeaderHr extends StatelessWidget {
                   condition : pageChecker,
                   builder: (context) => Expanded(
                     child: ListView.separated(
-                        itemBuilder: (context,index) => allWidgets(allFilesAndProject[index],context),
+                        itemBuilder: (context,index) => allWidgets(allFilesAndProject[index],context,cubit),
                         separatorBuilder: (context,index) => Container(
                           width: double.infinity,
                           height: 1.0,
@@ -102,7 +158,7 @@ class AllProjectsAndFilesSubHeaderHr extends StatelessWidget {
     );
   }
 
-  Widget buildUserItem(String user,BuildContext context) => Padding(
+  Widget buildUserItem(String user,BuildContext context,HrCubit cubit) => Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
@@ -113,36 +169,44 @@ class AllProjectsAndFilesSubHeaderHr extends StatelessWidget {
         const SizedBox(
           width: 20,
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AllProjectsAndFilesSubHeaderHr(folderNames: folderNames, folderId: folderId, subFolder: subFolder+":"+user, folderName2: user,)),
-                );
-              },
-              child: Text(
-                  user
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:  [
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AllProjectsAndFilesSubHeaderHr(folderNames: folderNames, folderId: folderId, subFolder: subFolder+":"+user, folderName2: user,)),
+                  );
+                },
+                child: Text(
+                    user
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          ),
+        ),
+        IconButton(
+            onPressed: (){
+
+              _onWillPop(context, cubit, folderNames, int.parse(folderId),  subFolder+":"+user);
+            }, icon: const Icon(Icons.delete,color: Colors.red,)
+        ),
       ],
     ),
   );
 
-  Widget allWidgets (String text, BuildContext context){
+  Widget allWidgets (String text, BuildContext context,HrCubit cubit){
     if(text.contains('http')){
-      return buildUserFile(text, context);
+      return buildUserFile(text, context,cubit);
     }else{
-      return buildUserItem(text, context);
+      return buildUserItem(text, context, cubit);
     }
   }
 
-  Widget buildUserFile(String user,BuildContext context) => Padding(
+  Widget buildUserFile(String user,BuildContext context,HrCubit cubit) => Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
@@ -153,26 +217,34 @@ class AllProjectsAndFilesSubHeaderHr extends StatelessWidget {
         const SizedBox(
           width: 20,
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
-            TextButton(
-              onPressed: () async{
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:  [
+              TextButton(
+                onPressed: () async{
 
-                String url =  user;
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else
-                  // can't launch url, there is some error
-                  throw "Could not launch $url";
-              },
-              child: Text(
-                  user.split('/')[user.split('/').length-1]
+                  String url =  user;
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else
+                    // can't launch url, there is some error
+                    throw "Could not launch $url";
+                },
+                child: Text(
+                    user.split('/')[user.split('/').length-1]
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          ),
+        ),
+        IconButton(
+            onPressed: (){
+              _onWillPopFiles(context,cubit,folderNames,int.parse(folderId),subFolder,user);
+
+            }, icon: const Icon(Icons.delete,color: Colors.red,)
+        ),
       ],
     ),
   );

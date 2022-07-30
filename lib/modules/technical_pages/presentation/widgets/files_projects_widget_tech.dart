@@ -16,6 +16,37 @@ class AllProjectsAndFilesTech extends StatelessWidget {
   final String folderId;
   const AllProjectsAndFilesTech({Key? key, required this.folderNames, required this.folderId}) : super(key: key);
 
+  Future<bool> _onWillPop(BuildContext context,TechCubit cubit,String user,int id,String file) async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Do you want to exit an App'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('No'),
+          ),
+          TextButton(
+            onPressed: () {
+
+              cubit.deleteSubHeader(id, user, file);
+              Navigator.of(context).pop(false);
+
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Deleted Successfully")));
+
+
+
+
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    )) ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -70,7 +101,7 @@ class AllProjectsAndFilesTech extends StatelessWidget {
                   condition : pageChecker,
                   builder: (context) => Expanded(
                     child: ListView.separated(
-                        itemBuilder: (context,index) => buildUserItem(project[index],context),
+                        itemBuilder: (context,index) => buildUserItem(project[index],context,cubit),
                         separatorBuilder: (context,index) => Container(
                           width: double.infinity,
                           height: 1.0,
@@ -89,7 +120,7 @@ class AllProjectsAndFilesTech extends StatelessWidget {
     );
   }
 
-  Widget buildUserItem(String user,BuildContext context) => Padding(
+  Widget buildUserItem(String user,BuildContext context,TechCubit cubit) => Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children:  [
@@ -100,23 +131,30 @@ class AllProjectsAndFilesTech extends StatelessWidget {
         const SizedBox(
           width: 20,
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  AllProjectsAndFilesSubHeaderTech(folderNames: folderNames, folderId: folderId, subFolder: user, folderName2: user,)),
-                );
-              },
-              child: Text(
-                  user
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:  [
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  AllProjectsAndFilesSubHeaderTech(folderNames: folderNames, folderId: folderId, subFolder: user, folderName2: user,)),
+                  );
+                },
+                child: Text(
+                    user
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          ),
+        ),
+        IconButton(
+            onPressed: (){
+              _onWillPop(context,cubit,folderNames,int.parse(folderId),user);
+            }, icon: const Icon(Icons.delete,color: Colors.red,)
+        ),
       ],
     ),
   );

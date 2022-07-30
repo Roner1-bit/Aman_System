@@ -56,6 +56,20 @@ class TechCubit extends Cubit<TechStates>{
     return getTechFiles;
   }
 
+  void deleteProject(int id, String name) async{
+    await ApiCalls.deleteProject(projectId: id, projectName: name);
+    emit(AppDeleteProjectTech());
+  }
 
+  void deleteSubHeader(int id, String name, String fullRoute) async {
+    await ApiCalls.deleteSubHeaders(projectId: id, projectName: name, fullRoute: fullRoute);
+    emit(AppDeleteSubHeader());
+  }
+
+
+  void deleteMultiMedia(int id, String name, String route, String multiMediaLink) async{
+    await ApiCalls.deleteMultiMedia(projectId: id, projectName: name, fullRoute: route, multiMediaLink: multiMediaLink);
+    emit(AppDeleteMutliMediaTech());
+  }
 
 }

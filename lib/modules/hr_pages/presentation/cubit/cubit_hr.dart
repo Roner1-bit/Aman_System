@@ -58,4 +58,19 @@ class HrCubit extends Cubit<HrStates>{
     emit(AppGetFilesHr());
     return getHrFiles;
   }
+
+  void deleteProjectHr(int id, String name) async{
+    await ApiCalls.deleteProjectHr(projectId: id, projectName: name);
+    emit(AppDeleteProjectHr());
+  }
+
+  void deleteSubHeaderHr(int id, String name, String fullRoute) async {
+    await ApiCalls.deleteSubHeadersHr(projectId: id, projectName: name, fullRoute: fullRoute);
+    emit(AppDeleteSubHeaderHr());
+  }
+
+  void deleteMultiMediaHr(int id, String name, String route, String multiMediaLink) async{
+    await ApiCalls.deleteMultiMediaHr(projectId: id, projectName: name, fullRoute: route, multiMediaLink: multiMediaLink);
+    emit(AppDeleteMutliMediaHr());
+  }
 }
